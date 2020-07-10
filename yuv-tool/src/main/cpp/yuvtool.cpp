@@ -373,3 +373,32 @@ Java_com_yuv_tool_YuvTool_I420ToRGB565(JNIEnv *env, jclass clazz, jbyteArray i42
     }
     return rgb_565;
 }
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_I420ToARGB4444(JNIEnv *env, jclass clazz, jbyteArray i420, jint width,
+                                         jint height) {
+    // TODO: implement I420ToARGB4444()
+
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_I420ToABGR(JNIEnv *env, jclass clazz, jbyteArray i420, jint width,
+                                     jint height) {
+    // TODO: implement I420ToABGR()
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_I420ToRGB24(JNIEnv *env, jclass clazz, jbyteArray i420, jint width,
+                                      jint height) {
+    // TODO: implement I420ToRGB24()
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_I420ToRGBA(JNIEnv *env, jclass clazz, jbyteArray i420, jint width,
+                                     jint height) {
+    // TODO: implement I420ToRGBA()
+}
