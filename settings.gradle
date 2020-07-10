@@ -1,0 +1,3 @@
+rootProject.name='LibYuvDemo'
+include ':app'
+include ':yuv-tool'
