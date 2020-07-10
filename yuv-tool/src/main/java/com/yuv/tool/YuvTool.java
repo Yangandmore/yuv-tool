@@ -16,12 +16,17 @@ public class YuvTool {
 
     public static native byte[] I420ToNV21(byte[] i420, int width, int height);
     public static native byte[] I420ToNV12(byte[] i420, int width, int height);
+    public static native byte[] I420ToI400(byte[] i420, int width, int height);
+    public static native byte[] I420ToI411(byte[] i420, int width, int height);
+    public static native byte[] I420ToI422(byte[] i420, int width, int height);
+    public static native byte[] I420ToI444(byte[] i420, int width, int height);
     public static native byte[] I420ToARGB(byte[] i420, int width, int height);
     public static native byte[] I420ToRGB565(byte[] i420, int width, int height);
     public static native byte[] I420ToARGB4444(byte[] i420, int width, int height);
     public static native byte[] I420ToABGR(byte[] i420, int width, int height);
     public static native byte[] I420ToRGB24(byte[] i420, int width, int height);
     public static native byte[] I420ToRGBA(byte[] i420, int width, int height);
+    public static native byte[] I420ToBGRA(byte[] i420, int width, int height);
 
     public static final class PicType {
         public static final int NV21 = 1;

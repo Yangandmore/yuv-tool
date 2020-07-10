@@ -92,6 +92,30 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="I420 -> I400"
+                android:onClick="i420ToI400Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> I411"
+                android:onClick="i420ToI411Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> I422"
+                android:onClick="i420ToI422Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> I444"
+                android:onClick="i420ToI444Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="I420 -> ARGB8888"
                 android:onClick="i420ToARGB8888Click"/>
 
@@ -101,6 +125,35 @@
                 android:text="I420 -> RGB565"
                 android:onClick="i420ToRGB565Click"/>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> ARGB4444"
+                android:onClick="i420ToARGB4444Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> ABGR"
+                android:onClick="i420ToABGRClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> RGB24"
+                android:onClick="i420ToRGB24Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> RGBA"
+                android:onClick="i420ToRGBAClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> BGRA"
+                android:onClick="i420ToBGRAClick"/>
 
         </LinearLayout>
 
