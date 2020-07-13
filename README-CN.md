@@ -1,12 +1,12 @@
-Complete Yuv-tool
------------------
+完整的 Yuv-tool
+------------
 
 ## 支持
-用于android中的libyuv所有功能，在yuv、rgb之间的转换工具。
+用于android中的libyuv所有功能，在yuv、rgb等之间的转换工具。尽量满足内部所有函数的清晰使用。
 
-- [ ] Android实时转换查看
+* [ ] Android实时转换查看
 
-- [x] 支持架构: armeabi-v7a, arm64-v8a, x86, x86_64
+* [x] 支持架构: armeabi-v7a, arm64-v8a, x86, x86_64
 
 - [ ] 加速SIMD指令
 

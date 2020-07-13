@@ -662,16 +662,9 @@ public class MainActivity extends AppCompatActivity {
         is.close();
 
         // 开始转码
-        long time = System.currentTimeMillis();
-        byte[] i420_scale = YuvTool.I420Scale(i420, yuvWidth, yuvHeight, yuvWidth >> 1, yuvHeight >> 1, 0);
-        Log.e("-----> scale:", (System.currentTimeMillis() - time)+"");
+        int ret = YuvTool.I420Rect(i420, yuvWidth, yuvHeight, 0, 0, 50, 50, 1, 0, 0);
 
-        // 成功失败提示
-        File file = new File(path, "lena_256x256_i420_scale.yuv");
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(i420_scale);
-        fos.flush();
-        fos.close();
+        Log.e("-----> ret:", ret+"");
 
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }

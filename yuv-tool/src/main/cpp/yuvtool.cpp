@@ -1121,3 +1121,4 @@ Java_com_yuv_tool_YuvTool_I420Rect(JNIEnv *env, jclass clazz, jbyteArray i420, j
 
     return ret;
 }
+
