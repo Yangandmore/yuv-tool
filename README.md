@@ -19,19 +19,25 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |NV21       | I420      |  success  |
     |NV21       | ARGB      |  success  |
     |NV21       | RGB565    |  success  |
+
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
     |NV12       | I420      |  success  |
     |NV12       | I420 |  success  |
     |NV12       | ARGB      |  success  |
     |NV12       | RGB565    |  success  |
+
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
     |I420       | I420      |  success  |
     |I420       | NV21      |  success  |
     |I420       | NV12      |  success  |
     |I420       | ARGB      |  success  |
-    |I420       | ARGB4444  |  success  |
+    |I420       | ARGB4444  |  fail  |
     |I420       | RGB565    |  success  |
     |I420       | I400      |  success  |
-    |I420       | I411      |  success  |
-    |I420       | I422      | fail  |
+    |I420       | I411      |  false  |
+    |I420       | I422      | success  |
     |I420       | I444      |  success  |
     |I420       | UYVY      |  success  |
     |I420       | RGBA      |  success  |
@@ -48,11 +54,35 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |I420       | scale_16(short) | success  |
     |I420       |    Psnr    | success  |
     |I420       |    Ssim    | success  |
+    |I420       |    Rect    | fail  |
 
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
+    |RGB24       |    I420    | success  |
+    |RGB24       |    ARGB    | success  |
 
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
+    |RGB565       |    I420    | success  |
+    |RGB565       |    ARGB    | success  |
 
-## coding
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
+    |ABGR       |    I420    | success  |
+    |ABGR       |    ARGB    | success  |
 
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
+    |ARGB       |    I420    | success  |
+    |ARGB       |    I400    | success  |
+    |ARGB       |    I411    | false  |
+    |ARGB       |    I422    | success  |
+    |ARGB       |    I444    | success  |
+    |ARGB       |    ABGR    | success  |
+    |ARGB       |    ARGB1555    | fail  |
+    |ARGB       |    ARGB4444    | fail  |
+
+## Coding
 
 ```java
 YuvTool.xxx();
