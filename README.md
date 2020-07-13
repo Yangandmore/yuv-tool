@@ -1,5 +1,7 @@
 Complete Yuv-tool
 -----------------
+[![](https://jitpack.io/v/Yangandmore/yuv-tool.svg)](https://jitpack.io/#Yangandmore/yuv-tool)
+
 
 [中文文档]<https://github.com/Yangandmore/yuv-tool/blob/master/README-CN.md>
 

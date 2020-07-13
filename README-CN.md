@@ -1,5 +1,6 @@
 完整的 Yuv-tool
 ------------
+[![](https://jitpack.io/v/Yangandmore/yuv-tool.svg)](https://jitpack.io/#Yangandmore/yuv-tool)
 
 ## 支持
 用于android中的libyuv所有功能，在yuv、rgb等之间的转换工具。尽量满足内部所有函数的清晰使用。
