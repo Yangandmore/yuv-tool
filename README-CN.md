@@ -83,6 +83,21 @@
 
 ## 代码
 
+```gradle
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+...
+
+dependencies {
+        implementation 'com.github.Yangandmore:yuv-tool:1.0'
+}
+```
+
 直接使用即可
 ```java
         YuvTool.xxx();

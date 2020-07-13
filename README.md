@@ -86,6 +86,21 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
 
 ## Coding
 
+```gradle
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+...
+
+dependencies {
+        implementation 'com.github.Yangandmore:yuv-tool:1.0'
+}
+```
+
 ```java
 YuvTool.xxx();
 ```
