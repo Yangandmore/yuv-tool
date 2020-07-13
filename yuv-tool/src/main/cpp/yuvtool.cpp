@@ -1543,4 +1543,3 @@ Java_com_yuv_tool_YuvTool_ARGBToARGB4444(JNIEnv *env, jclass clazz, jbyteArray a
     return argb_4444;
 }
 
-libyuv::ARGB
