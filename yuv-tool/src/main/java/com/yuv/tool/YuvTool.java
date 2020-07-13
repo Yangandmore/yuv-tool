@@ -29,6 +29,17 @@ public class YuvTool {
     public static native byte[] I420ToRGBA(byte[] i420, int width, int height);
     public static native byte[] I420ToBGRA(byte[] i420, int width, int height);
     public static native byte[] I420ToUYVY(byte[] i420, int width, int height);
+    public static native byte[] I420ToYUY2(byte[] i420, int width, int height);
+    public static native byte[] I420ToRAW(byte[] i420, int width, int height);
+    public static native byte[] I420Copy(byte[] i420, int width, int height);    // 拷贝
+    public static native byte[] I420Mirror(byte[] i420, int width, int height);  // 镜像
+    public static native byte[] I420Rotate(byte[] i420, int width, int height, int rotate);  // 旋转
+    public static native byte[] I420Scale(byte[] i420, int srcWidth, int srcHeight, int dstWidth, int dstHeight, int scaleMode);   // 缩放(mode:0->3,慢->快)
+    public static native byte[] I420Scale_16(byte[] i420, int srcWidth, int srcHeight, int dstWidth, int dstHeight, int scaleMode); // short模式下进行缩放相对速度快，质量差
+    public static native double I420Psnr(byte[] i420A, byte[] i420B, int width, int height); // 峰值信噪比(不能很好地反映人眼主观感受),值越大，视频质量越好
+    public static native double I420Ssim(byte[] i420A, byte[] i420B, int width, int height); // 结构相似性(较好地反映人眼主观感受),值越大，视频质量越好(0-1)
+    public static native int I420Rect(byte[] i420, int width, int height, int x, int y, int rectW, int rectH, int rectY, int rectU, int rectV);
+
 
 
     public static final class PicType {
@@ -37,7 +48,6 @@ public class YuvTool {
         public static final int I420 = 3;
         public static final int RGB_565 = 4;
         public static final int ARGB_8888 = 5;
-
     }
 
 }

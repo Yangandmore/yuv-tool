@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -316,12 +317,12 @@ public class MainActivity extends AppCompatActivity {
         is.close();
 
         // 开始转码
-        byte[] argb = YuvTool.I420ToRGB565(i420, yuvWidth, yuvHeight);
+        byte[] rgb565 = YuvTool.I420ToRGB565(i420, yuvWidth, yuvHeight);
 
         // 成功失败提示
         File file = new File(path, "lena_256x256_rgb565.rgb");
         FileOutputStream fos = new FileOutputStream(file);
-        fos.write(argb);
+        fos.write(rgb565);
         fos.flush();
         fos.close();
 
@@ -451,21 +452,227 @@ public class MainActivity extends AppCompatActivity {
     public void i420ToUYVYClick(View view) throws IOException {
         // 获取文件数据
         InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
-        byte[] uyvy = new byte[is.available()];
-        is.read(uyvy);
+        byte[] i420 = new byte[is.available()];
+        is.read(i420);
         is.close();
 
         // 开始转码
-        byte[] rgba = YuvTool.I420ToUYVY(uyvy, yuvWidth, yuvHeight);
+        byte[] uyvy = YuvTool.I420ToUYVY(i420, yuvWidth, yuvHeight);
 
         // 成功失败提示
         File file = new File(path, "lena_256x256_uyvy.yuv");
         FileOutputStream fos = new FileOutputStream(file);
-        fos.write(rgba);
+        fos.write(uyvy);
         fos.flush();
         fos.close();
 
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
 
+    // YUYV
+    public void i420ToYUY2Click(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420 = new byte[is.available()];
+        is.read(i420);
+        is.close();
+
+        // 开始转码
+        byte[] yuy2 = YuvTool.I420ToYUY2(i420, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_yuy2.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(yuy2);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void i420ToRawClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420 = new byte[is.available()];
+        is.read(i420);
+        is.close();
+
+        // 开始转码
+        byte[] raw = YuvTool.I420ToRAW(i420, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_raw.raw");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(raw);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void i420CopyClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420 = new byte[is.available()];
+        is.read(i420);
+        is.close();
+
+        // 开始转码
+        byte[] i420_cache = YuvTool.I420Copy(i420, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_i420_copy.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(i420_cache);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void i420MirrorClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420 = new byte[is.available()];
+        is.read(i420);
+        is.close();
+
+        // 开始转码
+        byte[] i420_mirror = YuvTool.I420Mirror(i420, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_i420_mirror.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(i420_mirror);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void i420RotateClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420 = new byte[is.available()];
+        is.read(i420);
+        is.close();
+
+        // 开始转码
+        byte[] i420_rotate = YuvTool.I420Rotate(i420, yuvWidth, yuvHeight, 90);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_i420_rotate.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(i420_rotate);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void i420ScaleClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420 = new byte[is.available()];
+        is.read(i420);
+        is.close();
+
+        // 开始转码
+        long time = System.currentTimeMillis();
+        byte[] i420_scale = YuvTool.I420Scale(i420, yuvWidth, yuvHeight, yuvWidth >> 1, yuvHeight >> 1, 0);
+        Log.e("-----> scale:", (System.currentTimeMillis() - time)+"");
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_i420_scale.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(i420_scale);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void i420Scale16Click(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420 = new byte[is.available()];
+        is.read(i420);
+        is.close();
+
+        // 开始转码
+        long time = System.currentTimeMillis();
+        byte[] i420_scale = YuvTool.I420Scale_16(i420, yuvWidth, yuvHeight, yuvWidth >> 1, yuvHeight >> 1, 0);
+        Log.e("-----> scale_16:", (System.currentTimeMillis() - time)+"");
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_i420_scale_16.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(i420_scale);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void i420PsnrClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420_a = new byte[is.available()];
+        is.read(i420_a);
+        is.close();
+        is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420_b = new byte[is.available()];
+        is.read(i420_b);
+        is.close();
+
+        // 开始转码
+        double data = YuvTool.I420Psnr(i420_a, i420_b, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        Log.e("-----> PsnrData : ", data+"");
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void i420SsimClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420_a = new byte[is.available()];
+        is.read(i420_a);
+        is.close();
+        is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420_b = new byte[is.available()];
+        is.read(i420_b);
+        is.close();
+
+        // 开始转码
+        double data = YuvTool.I420Ssim(i420_a, i420_b, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        Log.e("-----> SsimData : ", data+"");
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void i420RectClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420 = new byte[is.available()];
+        is.read(i420);
+        is.close();
+
+        // 开始转码
+        long time = System.currentTimeMillis();
+        byte[] i420_scale = YuvTool.I420Scale(i420, yuvWidth, yuvHeight, yuvWidth >> 1, yuvHeight >> 1, 0);
+        Log.e("-----> scale:", (System.currentTimeMillis() - time)+"");
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_i420_scale.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(i420_scale);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
 }

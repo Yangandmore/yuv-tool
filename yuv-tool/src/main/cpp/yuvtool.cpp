@@ -731,3 +731,393 @@ Java_com_yuv_tool_YuvTool_I420ToUYVY(JNIEnv *env, jclass clazz, jbyteArray i420,
     }
     return uyvy;
 }
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_I420ToYUY2(JNIEnv *env, jclass clazz, jbyteArray i420, jint width,
+                                     jint height) {
+    jsize len = env->GetArrayLength(i420);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = width_half * (height >> 1);
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray yuy2 = env->NewByteArray((size_y * 2));
+    unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
+    unsigned char* yuy2_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(yuy2, 0));
+
+    int ret = libyuv::I420ToYUY2(
+            i420_data, width,
+            i420_data + size_y, width_half,
+            i420_data + size_y + size_uv, width_half,
+            yuy2_data, width * 2,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+    env->ReleasePrimitiveArrayCritical(yuy2, yuy2_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return yuy2;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_I420ToRAW(JNIEnv *env, jclass clazz, jbyteArray i420, jint width,
+                                    jint height) {
+    jsize len = env->GetArrayLength(i420);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = width_half * (height >> 1);
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray raw = env->NewByteArray(size_y * 3);
+    unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
+    unsigned char* raw_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(raw, 0));
+
+    int ret = libyuv::I420ToRAW(
+            i420_data, width,
+            i420_data + size_y, width_half,
+            i420_data + size_y + size_uv, width_half,
+            raw_data, width * 3,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+    env->ReleasePrimitiveArrayCritical(raw, raw_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return raw;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_I420Copy(JNIEnv *env, jclass clazz, jbyteArray i420, jint width,
+                                   jint height) {
+    jsize len = env->GetArrayLength(i420);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = width_half * (height >> 1);
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray i420_cache = env->NewByteArray(len);
+    unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
+    unsigned char* i420_cache_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_cache, 0));
+
+    int ret = libyuv::I420Copy(
+            i420_data, width,
+            i420_data + size_y, width_half,
+            i420_data + size_y + size_uv, width_half,
+            i420_cache_data, width,
+            i420_cache_data + size_y, width_half,
+            i420_cache_data + size_y + size_uv, width_half,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+    env->ReleasePrimitiveArrayCritical(i420_cache, i420_cache_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return i420_cache;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_I420Mirror(JNIEnv *env, jclass clazz, jbyteArray i420, jint width,
+                                     jint height) {
+    jsize len = env->GetArrayLength(i420);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = width_half * (height >> 1);
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray i420_mirror = env->NewByteArray(len);
+    unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
+    unsigned char* i420_mirror_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_mirror, 0));
+
+    int ret = libyuv::I420Mirror(
+            i420_data, width,
+            i420_data + size_y, width_half,
+            i420_data + size_y + size_uv, width_half,
+            i420_mirror_data, width,
+            i420_mirror_data + size_y, width_half,
+            i420_mirror_data + size_y + size_uv, width_half,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+    env->ReleasePrimitiveArrayCritical(i420_mirror, i420_mirror_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return i420_mirror;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_I420Rotate(JNIEnv *env, jclass clazz, jbyteArray i420, jint width,
+                                     jint height, jint rotate) {
+    jsize len = env->GetArrayLength(i420);
+    int width_rotate = width;
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = width_half * (height >> 1);
+    if (len <= 0) {
+        return NULL;
+    }
+    libyuv::RotationMode mode;
+    switch (rotate) {
+        case 0:
+            mode = libyuv::kRotate0;
+            break;
+        case 90:
+            mode = libyuv::kRotate90;
+            width_rotate = height;
+            break;
+        case 180:
+            mode = libyuv::kRotate180;
+            break;
+        case 270:
+            mode = libyuv::kRotate270;
+            width_rotate = height;
+            break;
+        default:
+            mode = libyuv::kRotate0;
+            break;
+    }
+
+    jbyteArray i420_rotate = env->NewByteArray(len);
+    unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
+    unsigned char* i420_rotate_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_rotate, 0));
+
+    int ret = libyuv::I420Rotate(
+            i420_data, width,
+            i420_data + size_y, width_half,
+            i420_data + size_y + size_uv, width_half,
+            i420_rotate_data, width_rotate,
+            i420_rotate_data + size_y, width_rotate >> 1,
+            i420_rotate_data + size_y + size_uv, width_rotate >> 1,
+            width, height, mode
+    );
+
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+    env->ReleasePrimitiveArrayCritical(i420_rotate, i420_rotate_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return i420_rotate;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_I420Scale(JNIEnv *env, jclass clazz, jbyteArray i420, jint src_width,
+                                    jint src_height, jint dst_width, jint dst_height, jint scale_mode) {
+    jsize len = env->GetArrayLength(i420);
+    int src_width_half = src_width >> 1;
+    int dst_width_half = dst_width >> 1;
+    int src_size_y = src_width * src_height;
+    int src_size_uv = src_width_half * (src_height >> 1);
+    int dst_size_y = dst_width * dst_height;
+    int dst_size_uv = dst_width_half * (dst_height >> 1);
+
+    if (len <= 0) {
+        return NULL;
+    }
+    libyuv::FilterMode mode;
+    switch (scale_mode) {
+        case 0:
+            mode = libyuv::kFilterNone;
+            break;
+        case 1:
+            mode = libyuv::kFilterLinear;
+            break;
+        case 2:
+            mode = libyuv::kFilterBilinear;
+            break;
+        case 3:
+            mode = libyuv::kFilterBox;
+            break;
+        default:
+            mode = libyuv::kFilterNone;
+
+    }
+    jbyteArray i420_scale = env->NewByteArray(dst_size_y + dst_size_uv * 2);
+    unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
+    unsigned char* i420_scale_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_scale, 0));
+
+    int ret = libyuv::I420Scale(
+            i420_data, src_width,
+            i420_data + src_size_y, src_width_half,
+            i420_data + src_size_y + src_size_uv, src_width_half,
+            src_width, src_height,
+            i420_scale_data, dst_width,
+            i420_scale_data + dst_size_y, dst_width_half,
+            i420_scale_data + dst_size_y + dst_size_uv, dst_width_half,
+            dst_width, dst_height, mode
+    );
+
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+    env->ReleasePrimitiveArrayCritical(i420_scale, i420_scale_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return i420_scale;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_I420Scale_116(JNIEnv *env, jclass clazz, jbyteArray i420, jint src_width,
+                                        jint src_height, jint dst_width, jint dst_height,
+                                        jint scale_mode) {
+    jsize len = env->GetArrayLength(i420);
+    int src_width_half = src_width >> 1;
+    int dst_width_half = dst_width >> 1;
+    int src_size_y = src_width * src_height;
+    int src_size_uv = src_width_half * (src_height >> 1);
+    int dst_size_y = dst_width * dst_height;
+    int dst_size_uv = dst_width_half * (dst_height >> 1);
+
+    if (len <= 0) {
+        return NULL;
+    }
+    libyuv::FilterMode mode;
+    switch (scale_mode) {
+        case 0:
+            mode = libyuv::kFilterNone;
+            break;
+        case 1:
+            mode = libyuv::kFilterLinear;
+            break;
+        case 2:
+            mode = libyuv::kFilterBilinear;
+            break;
+        case 3:
+            mode = libyuv::kFilterBox;
+            break;
+        default:
+            mode = libyuv::kFilterNone;
+
+    }
+    jbyteArray i420_scale = env->NewByteArray(dst_size_y + dst_size_uv * 2);
+    unsigned short* i420_data = static_cast<unsigned short *>(env->GetPrimitiveArrayCritical(i420, 0));
+    unsigned short* i420_scale_data = static_cast<unsigned short *>(env->GetPrimitiveArrayCritical(i420_scale, 0));
+
+    int ret = libyuv::I420Scale_16(
+            i420_data, src_width >> 1,
+            i420_data + (src_size_y >> 1), src_width_half >> 1,
+            i420_data + (src_size_y >> 1) + (src_size_uv >> 1), src_width_half >> 1,
+            src_width, src_height,
+            i420_scale_data, dst_width >> 1,
+            i420_scale_data + (dst_size_y >> 1), dst_width_half >> 1,
+            i420_scale_data + (dst_size_y >> 1) + (dst_size_uv >> 1), dst_width_half >> 1,
+            dst_width, dst_height, mode
+    );
+
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+    env->ReleasePrimitiveArrayCritical(i420_scale, i420_scale_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return i420_scale;
+}
+
+extern "C"
+JNIEXPORT jdouble JNICALL
+Java_com_yuv_tool_YuvTool_I420Psnr(JNIEnv *env, jclass clazz, jbyteArray i420_a, jbyteArray i420_b,
+                                   jint width, jint height) {
+    jsize len = env->GetArrayLength(i420_a);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = width_half * (height >> 1);
+    if (len <= 0) {
+        return NULL;
+    }
+    unsigned char* i420_a_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_a, 0));
+    unsigned char* i420_b_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_b, 0));
+
+    double ret = libyuv::I420Psnr(
+            i420_a_data, width,
+            i420_a_data + size_y, width_half,
+            i420_a_data + size_y + size_uv, width_half,
+            i420_b_data, width,
+            i420_b_data + size_y, width_half,
+            i420_b_data + size_y + size_uv, width_half,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(i420_a, i420_a_data, 0);
+    env->ReleasePrimitiveArrayCritical(i420_b, i420_b_data, 0);
+
+    return ret;
+}
+
+extern "C"
+JNIEXPORT jdouble JNICALL
+Java_com_yuv_tool_YuvTool_I420Ssim(JNIEnv *env, jclass clazz, jbyteArray i420_a, jbyteArray i420_b,
+                                   jint width, jint height) {
+    jsize len = env->GetArrayLength(i420_a);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = width_half * (height >> 1);
+    if (len <= 0) {
+        return NULL;
+    }
+    unsigned char* i420_a_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_a, 0));
+    unsigned char* i420_b_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_b, 0));
+
+    double ret = libyuv::I420Ssim(
+            i420_a_data, width,
+            i420_a_data + size_y, width_half,
+            i420_a_data + size_y + size_uv, width_half,
+            i420_b_data, width,
+            i420_b_data + size_y, width_half,
+            i420_b_data + size_y + size_uv, width_half,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(i420_a, i420_a_data, 0);
+    env->ReleasePrimitiveArrayCritical(i420_b, i420_b_data, 0);
+
+    return ret;
+}
+
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_yuv_tool_YuvTool_I420Rect(JNIEnv *env, jclass clazz, jbyteArray i420, jint width,
+                                   jint height, jint x, jint y, jint rect_w, jint rect_h,
+                                   jint rect_y, jint rect_u, jint rect_v) {
+    jsize len = env->GetArrayLength(i420);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = width_half * (height >> 1);
+    if (len <= 0) {
+        return NULL;
+    }
+    unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
+
+    int ret = libyuv::I420Rect(
+            i420_data, width,
+            i420_data + size_y, width_half,
+            i420_data + size_y + size_uv, width_half,
+            x, y, rect_w, rect_h,
+            rect_y, rect_u, rect_v
+            );
+
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+
+    return ret;
+}

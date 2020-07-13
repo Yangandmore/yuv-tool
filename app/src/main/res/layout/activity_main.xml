@@ -167,6 +167,65 @@
                 android:text="I420 -> UYVY"
                 android:onClick="i420ToUYVYClick"/>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> YUY2"
+                android:onClick="i420ToYUY2Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> raw"
+                android:onClick="i420ToRawClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> Copy"
+                android:onClick="i420CopyClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> Mirror"
+                android:onClick="i420MirrorClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> Rotate"
+                android:onClick="i420RotateClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> Scale"
+                android:onClick="i420ScaleClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> Scale_16"
+                android:onClick="i420Scale16Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> Psnr"
+                android:onClick="i420PsnrClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> Ssim"
+                android:onClick="i420SsimClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> rect"
+                android:onClick="i420RectClick"/>
 
         </LinearLayout>
 
