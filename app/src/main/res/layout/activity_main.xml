@@ -134,6 +134,12 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="I420 -> ARGB1555"
+                android:onClick="i420ToARGB1555Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="I420 -> ABGR"
                 android:onClick="i420ToABGRClick"/>
 
@@ -154,6 +160,13 @@
                 android:layout_height="wrap_content"
                 android:text="I420 -> BGRA"
                 android:onClick="i420ToBGRAClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420 -> UYVY"
+                android:onClick="i420ToUYVYClick"/>
+
 
         </LinearLayout>
 
