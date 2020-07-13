@@ -948,4 +948,84 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
+
+    public void argbToCopyClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("rgb/lena_256x256_argb.rgb");
+        byte[] argb = new byte[is.available()];
+        is.read(argb);
+        is.close();
+
+        // 开始转码
+        byte[] argb_copy = YuvTool.ARGBCopy(argb, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_argb_copy.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(argb_copy);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void argbToMirrorClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("rgb/lena_256x256_argb.rgb");
+        byte[] argb = new byte[is.available()];
+        is.read(argb);
+        is.close();
+
+        // 开始转码
+        byte[] argb_mirror = YuvTool.ARGBMirror(argb, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_argb_mirror.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(argb_mirror);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void argbToRotateClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("rgb/lena_256x256_argb.rgb");
+        byte[] argb = new byte[is.available()];
+        is.read(argb);
+        is.close();
+
+        // 开始转码
+        byte[] argb_rotate = YuvTool.ARGBRotate(argb, yuvWidth, yuvHeight, 90);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_argb_rotate.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(argb_rotate);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void argbToScaleClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("rgb/lena_256x256_argb.rgb");
+        byte[] argb = new byte[is.available()];
+        is.read(argb);
+        is.close();
+
+        // 开始转码
+        byte[] argb_scale = YuvTool.ARGBScale(argb, yuvWidth, yuvHeight, yuvWidth >> 1, yuvHeight >> 1, 0);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_argb_scale.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(argb_scale);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
 }

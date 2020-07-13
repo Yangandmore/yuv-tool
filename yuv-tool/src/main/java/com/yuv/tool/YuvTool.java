@@ -57,6 +57,10 @@ public class YuvTool {
     public static native byte[] ARGBToABGR(byte[] argb, int width, int height);
     public static native byte[] ARGBToARGB1555(byte[] argb, int width, int height);
     public static native byte[] ARGBToARGB4444(byte[] argb, int width, int height);
+    public static native byte[] ARGBCopy(byte[] argb, int width, int height);
+    public static native byte[] ARGBMirror(byte[] argb, int width, int height);
+    public static native byte[] ARGBRotate(byte[] argb, int width, int height, int rotate);
+    public static native byte[] ARGBScale(byte[] argb, int srcWidth, int srcHeight, int dstWidth, int dstHeight, int scaleMode);
 
     public static final class PicType {
         public static final int NV21 = 1;

@@ -346,6 +346,31 @@
                 android:text="ARGB -> ARGB4444"
                 android:onClick="argbToARGB4444Click"/>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> Copy"
+                android:onClick="argbToCopyClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> Mirror"
+                android:onClick="argbToMirrorClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> Rotate"
+                android:onClick="argbToRotateClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> Scale"
+                android:onClick="argbToScaleClick"/>
+
+
         </LinearLayout>
 
     </ScrollView>

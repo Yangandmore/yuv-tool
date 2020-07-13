@@ -1543,3 +1543,162 @@ Java_com_yuv_tool_YuvTool_ARGBToARGB4444(JNIEnv *env, jclass clazz, jbyteArray a
     return argb_4444;
 }
 
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBCopy(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                   jint height) {
+    jsize len = env->GetArrayLength(argb);
+    int size_y = width * height;
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray argb_cache = env->NewByteArray(size_y * 4);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* argb_cache_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb_cache, 0));
+
+    int ret = libyuv::ARGBCopy(
+            argb_data, width * 4,
+            argb_cache_data, width * 4,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(argb_cache, argb_cache_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return argb_cache;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBMirror(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                     jint height) {
+    jsize len = env->GetArrayLength(argb);
+    int size_y = width * height;
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray argb_mirror = env->NewByteArray(size_y * 4);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* argb_mirror_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb_mirror, 0));
+
+    int ret = libyuv::ARGBMirror(
+            argb_data, width * 4,
+            argb_mirror_data, width * 4,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(argb_mirror, argb_mirror_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return argb_mirror;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBRotate(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                     jint height, jint rotate) {
+    jsize len = env->GetArrayLength(argb);
+    int size_y = width * height;
+    int width_rotate = width;
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray argb_rotate = env->NewByteArray(size_y * 4);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* argb_rotate_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb_rotate, 0));
+
+    libyuv::RotationMode mode;
+    switch (rotate) {
+        case 0:
+            mode = libyuv::kRotate0;
+            break;
+        case 90:
+            mode = libyuv::kRotate90;
+            width_rotate = height;
+            break;
+        case 180:
+            mode = libyuv::kRotate180;
+            break;
+        case 270:
+            mode = libyuv::kRotate270;
+            width_rotate = height;
+            break;
+        default:
+            mode = libyuv::kRotate0;
+            break;
+    }
+
+    int ret = libyuv::ARGBRotate(
+            argb_data, width * 4,
+            argb_rotate_data, width_rotate * 4,
+            width, height, mode
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(argb_rotate, argb_rotate_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return argb_rotate;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBScale(JNIEnv *env, jclass clazz, jbyteArray argb, jint src_width,
+                                    jint src_height, jint dst_width, jint dst_height,
+                                    jint scale_mode) {
+    jsize len = env->GetArrayLength(argb);
+    int src_width_half = src_width >> 1;
+    int dst_width_half = dst_width >> 1;
+    int src_size_y = src_width * src_height;
+    int src_size_uv = src_width_half * (src_height >> 1);
+    int dst_size_y = dst_width * dst_height;
+    int dst_size_uv = dst_width_half * (dst_height >> 1);
+
+    if (len <= 0) {
+        return NULL;
+    }
+    libyuv::FilterMode mode;
+    switch (scale_mode) {
+        case 0:
+            mode = libyuv::kFilterNone;
+            break;
+        case 1:
+            mode = libyuv::kFilterLinear;
+            break;
+        case 2:
+            mode = libyuv::kFilterBilinear;
+            break;
+        case 3:
+            mode = libyuv::kFilterBox;
+            break;
+        default:
+            mode = libyuv::kFilterNone;
+
+    }
+    jbyteArray argb_scale = env->NewByteArray(dst_size_y * 4);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* argb_scale_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb_scale, 0));
+
+    int ret = libyuv::ARGBScale(
+            argb_data, src_width * 4,
+            src_width, src_height,
+            argb_scale_data, dst_width * 4,
+            dst_width, dst_height, mode
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(argb_scale, argb_scale_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return argb_scale;
+}
