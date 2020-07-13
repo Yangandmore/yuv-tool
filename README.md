@@ -1,57 +1,59 @@
 Complete Yuv-tool
 -----------------
 
-## 支持
-用于android中的libyuv所有功能，在yuv、rgb之间的转换工具。
+[中文文档]<https://github.com/Yangandmore/yuv-tool/blob/master/README-CN.md>
 
-- [ ] Android实时转换查看
+## Support
+It is used for all functions of libyuv in Android, and the conversion tool between YUV and RGB.
 
-- [x] 支持架构: armeabi-v7a, arm64-v8a, x86, x86_64
+- [ ] Android Online conversion
 
-- [ ] 加速SIMD指令
+- [x] Support architecture: armeabi-v7a, arm64-v8a, x86, x86_64
 
-- [x] 当前支持以下格式转换方式：
+- [ ] SIMD
 
-    |  原始格式  |  转码格式  |  测试  |
+- [x] Currently supported formats：
+
+    |  src format  |  dst format  |  test  |
     | --------- | --------- | ----- |
-    |NV21       | I420      |  完成  |
-    |NV21       | ARGB      |  完成  |
-    |NV21       | RGB565    |  完成  |
-    |NV12       | I420      |  完成  |
-    |NV12       | I420(旋转) |  完成  |
-    |NV12       | ARGB      |  完成  |
-    |NV12       | RGB565    |  完成  |
-    |I420       | I420      |  完成  |
-    |I420       | NV21      |  完成  |
-    |I420       | NV12      |  完成  |
-    |I420       | ARGB      |  完成  |
-    |I420       | ARGB4444  |  完成  |
-    |I420       | RGB565    |  完成  |
-    |I420       | I400      |  完成  |
-    |I420       | I411      |  完成  |
-    |I420       | I422      | 未完成  |
-    |I420       | I444      |  完成  |
-    |I420       | UYVY      |  完成  |
-    |I420       | RGBA      |  完成  |
-    |I420       | BGRA      |  完成  |
-    |I420       | RGB24     |  完成  |
-    |I420       | ABGR      |  完成  |
-    |I420       | ABGR1555  | 未完成  |
-    |I420       | YUY2(YUYV)|  完成  |
-    |I420       |    raw    | 未完成  |
-    |I420       | copy(复制) | 完成  |
-    |I420       | mirror(镜像) | 完成  |
-    |I420       | rotate(旋转) | 完成  |
-    |I420       | scale(缩放) | 完成  |
-    |I420       | scale_16(缩放) | 完成  |
-    |I420       |    Psnr计算    | 完成  |
-    |I420       |    Ssim计算    | 完成  |
+    |NV21       | I420      |  success  |
+    |NV21       | ARGB      |  success  |
+    |NV21       | RGB565    |  success  |
+    |NV12       | I420      |  success  |
+    |NV12       | I420 |  success  |
+    |NV12       | ARGB      |  success  |
+    |NV12       | RGB565    |  success  |
+    |I420       | I420      |  success  |
+    |I420       | NV21      |  success  |
+    |I420       | NV12      |  success  |
+    |I420       | ARGB      |  success  |
+    |I420       | ARGB4444  |  success  |
+    |I420       | RGB565    |  success  |
+    |I420       | I400      |  success  |
+    |I420       | I411      |  success  |
+    |I420       | I422      | fail  |
+    |I420       | I444      |  success  |
+    |I420       | UYVY      |  success  |
+    |I420       | RGBA      |  success  |
+    |I420       | BGRA      |  success  |
+    |I420       | RGB24     |  success  |
+    |I420       | ABGR      |  success  |
+    |I420       | ABGR1555  | fail  |
+    |I420       | YUY2(YUYV)|  success  |
+    |I420       |    raw    | fail  |
+    |I420       | copy | success  |
+    |I420       | mirror | success  |
+    |I420       | rotate | success  |
+    |I420       | scale | success  |
+    |I420       | scale_16(short) | success  |
+    |I420       |    Psnr    | success  |
+    |I420       |    Ssim    | success  |
 
 
 
-## 代码
+## coding
 
-直接使用即可
+
 ```java
-        YuvTool.xxx();
+YuvTool.xxx();
 ```
