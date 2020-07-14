@@ -7,6 +7,7 @@ public class YuvTool {
 
     public static native byte[] NV21ToI420(byte[] nv21, int width, int height);
     public static native byte[] NV21ToARGB(byte[] nv21, int width, int height);
+    public static native byte[] NV21ToARGB_NEON(byte[] nv21, int width, int height);
     public static native byte[] NV21ToRGB565(byte[] nv21, int width, int height);
 
     public static native byte[] NV12ToI420(byte[] nv12, int width, int height);
@@ -49,12 +50,20 @@ public class YuvTool {
     public static native byte[] ABGRToI420(byte[] abgr, int width, int height);
     public static native byte[] ABGRToARGB(byte[] abgr, int width, int height);
 
+    public static native byte[] ARGBToNV21(byte[] argb, int width, int height);
+    public static native byte[] ARGBToNV12(byte[] argb, int width, int height);
+    public static native byte[] ARGBToYUY2(byte[] argb, int width, int height);
+    public static native byte[] ARGBToUYVY(byte[] argb, int width, int height);
     public static native byte[] ARGBToI420(byte[] argb, int width, int height);
     public static native byte[] ARGBToI400(byte[] argb, int width, int height);
     public static native byte[] ARGBToI411(byte[] argb, int width, int height);
     public static native byte[] ARGBToI422(byte[] argb, int width, int height);
     public static native byte[] ARGBToI444(byte[] argb, int width, int height);
     public static native byte[] ARGBToABGR(byte[] argb, int width, int height);
+    public static native byte[] ARGBToBGRA(byte[] argb, int width, int height);
+    public static native byte[] ARGBToRGBA(byte[] argb, int width, int height);
+    public static native byte[] ARGBToRGB24(byte[] argb, int width, int height);
+    public static native byte[] ARGBToRGB565(byte[] argb, int width, int height);
     public static native byte[] ARGBToARGB1555(byte[] argb, int width, int height);
     public static native byte[] ARGBToARGB4444(byte[] argb, int width, int height);
     public static native byte[] ARGBCopy(byte[] argb, int width, int height);

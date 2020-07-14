@@ -53,6 +53,12 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="NV21 -> argb8888 NEON"
+                android:onClick="nv21ToARGB8888NEONClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="NV21 -> rgb565"
                 android:onClick="nv21ToRG565Click"/>
 
@@ -301,6 +307,30 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="ARGB -> NV21"
+                android:onClick="argbToNV21Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> NV12"
+                android:onClick="argbToNV12Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> YUY2"
+                android:onClick="argbToYUY2Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> UYVY"
+                android:onClick="argbToUYVYClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="ARGB -> I420"
                 android:onClick="argbToI420Click"/>
 
@@ -333,6 +363,30 @@
                 android:layout_height="wrap_content"
                 android:text="ARGB -> ABGR"
                 android:onClick="argbToABGRClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> BGRA"
+                android:onClick="argbToBGRAClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> RGBA"
+                android:onClick="argbToRGBAClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> RGB24"
+                android:onClick="argbToRGB24Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> RGB565"
+                android:onClick="argbToRGB565Click"/>
 
             <Button
                 android:layout_width="match_parent"

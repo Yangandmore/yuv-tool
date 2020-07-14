@@ -72,14 +72,26 @@
 
     |  原始格式  |  转码格式  |  测试  |
     | --------- | --------- | ----- |
+    |ARGB       |    NV21    | 完成  |
+    |ARGB       |    NV12    | 完成  |
+    |ARGB       |    YUY2    | 完成  |
+    |ARGB       |    UYVY    | 完成  |
     |ARGB       |    I420    | 完成  |
     |ARGB       |    I400    | 完成  |
     |ARGB       |    I411    | 未完成  |
     |ARGB       |    I422    | 完成  |
     |ARGB       |    I444    | 完成  |
     |ARGB       |    ABGR    | 完成  |
+    |ARGB       |    BGRA    | 完成  |
+    |ARGB       |    RGBA    | 完成  |
+    |ARGB       |    RGB24    | 完成  |
+    |ARGB       |    RGB565    | 完成  |
     |ARGB       |    ARGB1555    | 未完成  |
     |ARGB       |    ARGB4444    | 未完成  |
+    |ARGB       |    copy(复制)    | success  |
+    |ARGB       |    mirror(镜像)    | success  |
+    |ARGB       |    rotate(旋转)    | success  |
+    |ARGB       |    scale(缩放)    | success  |
 
 ## 代码
 

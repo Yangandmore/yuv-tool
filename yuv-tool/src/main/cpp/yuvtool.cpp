@@ -80,6 +80,41 @@ Java_com_yuv_tool_YuvTool_NV21ToARGB(JNIEnv *env, jclass clazz, jbyteArray nv21,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_NV21ToARGB_1NEON(JNIEnv *env, jclass clazz, jbyteArray nv21, jint width,
+                                           jint height) {
+    jsize len = env->GetArrayLength(nv21);
+    int size_y = width * height;
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray argb = env->NewByteArray(size_y * 4);
+    unsigned char* nv21_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(nv21, 0));
+    unsigned char* agbr_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+
+//    int agbr_width = width * 4;
+//    for (int i = 0, j = 1; i < height; i+=2, j+=2) {
+//        int uv_size = size_y + (width * i)/2;
+//        int agbr_left = agbr_width * i;
+//        int agbr_right = agbr_width * j;
+//        libyuv::NV21ToARGBRow_NEON(
+//                nv21_data + (width * i),
+//                nv21_data + uv_size,
+//                agbr_data + agbr_left, width);
+//
+//        libyuv::NV21ToARGBRow_NEON(
+//                nv21_data + (width * j),
+//                nv21_data + uv_size,
+//                agbr_data + agbr_right, width);
+//    }
+
+    env->ReleasePrimitiveArrayCritical(nv21, nv21_data, 0);
+    env->ReleasePrimitiveArrayCritical(argb, agbr_data, 0);
+
+    return argb;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
 Java_com_yuv_tool_YuvTool_NV21ToRGB565(JNIEnv *env, jclass clazz, jbyteArray nv21, jint width, jint height) {
     jsize len = env->GetArrayLength(nv21);
     int size_y = width * height;
@@ -711,7 +746,7 @@ Java_com_yuv_tool_YuvTool_I420ToUYVY(JNIEnv *env, jclass clazz, jbyteArray i420,
     if (len <= 0) {
         return NULL;
     }
-    jbyteArray uyvy = env->NewByteArray((size_y * 2));
+    jbyteArray uyvy = env->NewByteArray(size_y * 2);
     unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
     unsigned char* uyvy_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(uyvy, 0));
 
@@ -743,7 +778,7 @@ Java_com_yuv_tool_YuvTool_I420ToYUY2(JNIEnv *env, jclass clazz, jbyteArray i420,
     if (len <= 0) {
         return NULL;
     }
-    jbyteArray yuy2 = env->NewByteArray((size_y * 2));
+    jbyteArray yuy2 = env->NewByteArray(size_y * 2);
     unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
     unsigned char* yuy2_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(yuy2, 0));
 
@@ -1044,7 +1079,7 @@ Java_com_yuv_tool_YuvTool_I420Psnr(JNIEnv *env, jclass clazz, jbyteArray i420_a,
     int size_y = width * height;
     int size_uv = width_half * (height >> 1);
     if (len <= 0) {
-        return NULL;
+        return -1;
     }
     unsigned char* i420_a_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_a, 0));
     unsigned char* i420_b_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_b, 0));
@@ -1074,7 +1109,7 @@ Java_com_yuv_tool_YuvTool_I420Ssim(JNIEnv *env, jclass clazz, jbyteArray i420_a,
     int size_y = width * height;
     int size_uv = width_half * (height >> 1);
     if (len <= 0) {
-        return NULL;
+        return -1;
     }
     unsigned char* i420_a_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_a, 0));
     unsigned char* i420_b_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420_b, 0));
@@ -1105,7 +1140,7 @@ Java_com_yuv_tool_YuvTool_I420Rect(JNIEnv *env, jclass clazz, jbyteArray i420, j
     int size_y = width * height;
     int size_uv = width_half * (height >> 1);
     if (len <= 0) {
-        return NULL;
+        return -1;
     }
     unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
 
@@ -1305,6 +1340,123 @@ Java_com_yuv_tool_YuvTool_ABGRToARGB(JNIEnv *env, jclass clazz, jbyteArray abgr,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBToNV21(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                     jint height) {
+    jsize len = env->GetArrayLength(argb);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = width_half * (height >> 1);
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray nv21 = env->NewByteArray(size_y + size_uv * 2);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* nv21_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(nv21, 0));
+
+    int ret = libyuv::ARGBToNV21(
+            argb_data, width * 4,
+            nv21_data, width,
+            nv21_data + size_y, width,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(nv21, nv21_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return nv21;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBToNV12(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                     jint height) {
+    jsize len = env->GetArrayLength(argb);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = width_half * (height >> 1);
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray nv12 = env->NewByteArray(size_y + size_uv * 2);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* nv12_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(nv12, 0));
+
+    int ret = libyuv::ARGBToNV12(
+            argb_data, width * 4,
+            nv12_data, width,
+            nv12_data + size_y, width,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(nv12, nv12_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return nv12;
+}
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBToYUY2(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                     jint height) {
+    jsize len = env->GetArrayLength(argb);
+    int size_y = width * height;
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray yuy2 = env->NewByteArray(size_y * 2);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* yuy2_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(yuy2, 0));
+
+    int ret = libyuv::ARGBToYUY2(
+            argb_data, width * 4,
+            yuy2_data, width * 2,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(yuy2, yuy2_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return yuy2;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBToUYVY(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                     jint height) {
+    jsize len = env->GetArrayLength(argb);
+    int size_y = width * height;
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray uyvy = env->NewByteArray(size_y * 2);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* uyvy_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(uyvy, 0));
+
+    int ret = libyuv::ARGBToUYVY(
+            argb_data, width * 4,
+            uyvy_data, width * 2,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(uyvy, uyvy_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return uyvy;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
 Java_com_yuv_tool_YuvTool_ARGBToI420(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
                                      jint height) {
     jsize len = env->GetArrayLength(argb);
@@ -1489,6 +1641,118 @@ Java_com_yuv_tool_YuvTool_ARGBToABGR(JNIEnv *env, jclass clazz, jbyteArray argb,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBToBGRA(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                     jint height) {
+    jsize len = env->GetArrayLength(argb);
+    int size_y = width * height;
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray bgra = env->NewByteArray(size_y * 4);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* bgra_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(bgra, 0));
+
+    int ret = libyuv::ARGBToBGRA(
+            argb_data, width * 4,
+            bgra_data, width * 4,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(bgra, bgra_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return bgra;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBToRGBA(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                     jint height) {
+    jsize len = env->GetArrayLength(argb);
+    int size_y = width * height;
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray rgba = env->NewByteArray(size_y * 4);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* rgba_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(rgba, 0));
+
+    int ret = libyuv::ARGBToRGBA(
+            argb_data, width * 4,
+            rgba_data, width * 4,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(rgba, rgba_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return rgba;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBToRGB24(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                      jint height) {
+    jsize len = env->GetArrayLength(argb);
+    int size_y = width * height;
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray rgb24 = env->NewByteArray(size_y * 3);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* rgb24_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(rgb24, 0));
+
+    int ret = libyuv::ARGBToRGB24(
+            argb_data, width * 4,
+            rgb24_data, width * 3,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(rgb24, rgb24_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return rgb24;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBToRGB565(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                       jint height) {
+    jsize len = env->GetArrayLength(argb);
+    int size_y = width * height;
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray rgb565 = env->NewByteArray(size_y * 2);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* rgb565_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(rgb565, 0));
+
+    int ret = libyuv::ARGBToRGB565(
+            argb_data, width * 4,
+            rgb565_data, width * 2,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(rgb565, rgb565_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return rgb565;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
 Java_com_yuv_tool_YuvTool_ARGBToARGB1555(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
                                          jint height) {
     jsize len = env->GetArrayLength(argb);
@@ -1655,12 +1919,7 @@ Java_com_yuv_tool_YuvTool_ARGBScale(JNIEnv *env, jclass clazz, jbyteArray argb, 
                                     jint src_height, jint dst_width, jint dst_height,
                                     jint scale_mode) {
     jsize len = env->GetArrayLength(argb);
-    int src_width_half = src_width >> 1;
-    int dst_width_half = dst_width >> 1;
-    int src_size_y = src_width * src_height;
-    int src_size_uv = src_width_half * (src_height >> 1);
     int dst_size_y = dst_width * dst_height;
-    int dst_size_uv = dst_width_half * (dst_height >> 1);
 
     if (len <= 0) {
         return NULL;

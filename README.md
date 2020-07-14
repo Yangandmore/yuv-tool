@@ -75,14 +75,26 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
 
     |  src format  |  dst format  |  test  |
     | --------- | --------- | ----- |
+    |ARGB       |    NV21    | success  |
+    |ARGB       |    NV12    | success  |
+    |ARGB       |    YUY2    | success  |
+    |ARGB       |    UYVY    | success  |
     |ARGB       |    I420    | success  |
     |ARGB       |    I400    | success  |
     |ARGB       |    I411    | false  |
     |ARGB       |    I422    | success  |
     |ARGB       |    I444    | success  |
     |ARGB       |    ABGR    | success  |
+    |ARGB       |    BGRA    | success  |
+    |ARGB       |    RGBA    | success  |
+    |ARGB       |    RGB24    | success  |
+    |ARGB       |    RGB565    | success  |
     |ARGB       |    ARGB1555    | fail  |
     |ARGB       |    ARGB4444    | fail  |
+    |ARGB       |    copy    | success  |
+    |ARGB       |    mirror    | success  |
+    |ARGB       |    rotate    | success  |
+    |ARGB       |    scale    | success  |
 
 ## Coding
 
