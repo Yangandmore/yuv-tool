@@ -90,11 +90,16 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |ARGB       |    RGB24    | success  |
     |ARGB       |    RGB565    | success  |
     |ARGB       |    ARGB1555    | fail  |
-    |ARGB       |    ARGB4444    | fail  |
+    |ARGB       |    ARGB4444    |  fail  |
     |ARGB       |    copy    | success  |
     |ARGB       |    mirror    | success  |
     |ARGB       |    rotate    | success  |
     |ARGB       |    scale    | success  |
+
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
+    |RGBA       | I420      | success|
+    |RGBA       | ARGB      | success|
 
 ## Coding
 

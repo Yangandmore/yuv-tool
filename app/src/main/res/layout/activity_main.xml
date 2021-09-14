@@ -424,6 +424,22 @@
                 android:text="ARGB -> Scale"
                 android:onClick="argbToScaleClick"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RGBA转码"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RGBA -> I420"
+                android:onClick="rgbaToI420Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RGBA -> AGBR"
+                android:onClick="rgbaToAGBRClick"/>
 
         </LinearLayout>
 

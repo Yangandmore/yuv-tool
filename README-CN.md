@@ -88,10 +88,16 @@
     |ARGB       |    RGB565    | 完成  |
     |ARGB       |    ARGB1555    | 未完成  |
     |ARGB       |    ARGB4444    | 未完成  |
-    |ARGB       |    copy(复制)    | success  |
-    |ARGB       |    mirror(镜像)    | success  |
-    |ARGB       |    rotate(旋转)    | success  |
-    |ARGB       |    scale(缩放)    | success  |
+    |ARGB       |    copy(复制)    | 完成  |
+    |ARGB       |    mirror(镜像)    | 完成  |
+    |ARGB       |    rotate(旋转)    | 完成  |
+    |ARGB       |    scale(缩放)    | 完成  |
+
+
+    |  原始格式  |  转码格式  |  测试  |
+    | --------- | --------- | ----- |
+    |RGBA       | I420      | 完成|
+    |RGBA       | ARGB      | 完成|
 
 ## 代码
 

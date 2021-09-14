@@ -1961,3 +1961,63 @@ Java_com_yuv_tool_YuvTool_ARGBScale(JNIEnv *env, jclass clazz, jbyteArray argb, 
     }
     return argb_scale;
 }
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_RGBAToI420(JNIEnv *env, jclass clazz, jbyteArray rgba, jint width,
+                                     jint height) {
+    jsize len = env->GetArrayLength(rgba);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = width_half * (height >> 1);
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray i420 = env->NewByteArray(size_y * 4 + size_uv * 2);
+    unsigned char* rgba_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(rgba, 0));
+    unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
+
+    int ret = libyuv::RGBAToI420(
+            rgba_data, width * 4,
+            i420_data, width,
+            i420_data + size_y, width_half,
+            i420_data + size_y + size_uv, width_half,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(rgba, rgba_data, 0);
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return i420;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_RGBAToARGB(JNIEnv *env, jclass clazz, jbyteArray rgba, jint width,
+                                     jint height) {
+    jsize len = env->GetArrayLength(rgba);
+    int size_y = width * height;
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray agbr = env->NewByteArray(size_y * 4);
+    unsigned char* rgba_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(rgba, 0));
+    unsigned char* agbr_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(agbr, 0));
+
+    int ret = libyuv::RGBAToARGB(
+            rgba_data, width * 4,
+            agbr_data, width * 4,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(rgba, rgba_data, 0);
+    env->ReleasePrimitiveArrayCritical(agbr, agbr_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return agbr;
+}

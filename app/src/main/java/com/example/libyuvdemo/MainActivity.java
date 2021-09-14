@@ -1210,4 +1210,44 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
 
+    public void rgbaToI420Click(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("rgb/lena_256x256_rgba.rgb");
+        byte[] rgba = new byte[is.available()];
+        is.read(rgba);
+        is.close();
+
+        // 开始转码
+        byte[] i420 = YuvTool.RGBAToI420(rgba, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_i420.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(i420);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void rgbaToAGBRClick(View view) throws IOException {
+
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("rgb/lena_256x256_rgba.rgb");
+        byte[] rgba = new byte[is.available()];
+        is.read(rgba);
+        is.close();
+
+        // 开始转码
+        byte[] argb = YuvTool.RGBAToARGB(rgba, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_argb.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(argb);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
 }
