@@ -53,12 +53,6 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NV21 -> argb8888 NEON"
-                android:onClick="nv21ToARGB8888NEONClick"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="NV21 -> rgb565"
                 android:onClick="nv21ToRG565Click"/>
 
@@ -440,6 +434,36 @@
                 android:layout_height="wrap_content"
                 android:text="RGBA -> AGBR"
                 android:onClick="rgbaToAGBRClick"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="裁剪"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="裁剪旋转为I420"
+                android:onClick="toI420"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="裁剪旋转为ARGB"
+                android:onClick="toARGB"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I420旋转裁剪为"
+                android:onClick="fromI420"/>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB旋转裁剪为"
+                android:onClick="fromARGB"/>
 
         </LinearLayout>
 

@@ -7,7 +7,6 @@ public class YuvTool {
 
     public static native byte[] NV21ToI420(byte[] nv21, int width, int height);
     public static native byte[] NV21ToARGB(byte[] nv21, int width, int height);
-    public static native byte[] NV21ToARGB_NEON(byte[] nv21, int width, int height);
     public static native byte[] NV21ToRGB565(byte[] nv21, int width, int height);
 
     public static native byte[] NV12ToI420(byte[] nv12, int width, int height);
@@ -74,12 +73,45 @@ public class YuvTool {
     public static native byte[] RGBAToI420(byte[] rgba, int width, int height);
     public static native byte[] RGBAToARGB(byte[] rgba, int width, int height);
 
-    public static final class PicType {
-        public static final int NV21 = 1;
-        public static final int NV12 = 2;
-        public static final int I420 = 3;
-        public static final int RGB_565 = 4;
-        public static final int ARGB_8888 = 5;
-    }
+    /**
+     *
+     * @param src yuv格式数据
+     * @param srcWidth 图片宽度
+     * @param srcHeight 图片高度
+     * @param cropX 裁剪后旋转前起始x坐标
+     * @param cropY 裁剪后旋转前起始y坐标
+     * @param cropWidth 裁剪后旋转前图片宽度
+     * @param cropHeight 裁剪后旋转前图片高度
+     * @param rotate 旋转角度
+     * @param srcType 原数据类型，参考video_common.h文件下FourCC类
+     * @return
+     */
+    public static native byte[] convertToI420(byte[] src, int srcWidth, int srcHeight, int cropX, int cropY, int cropWidth, int cropHeight, int rotate, char[] srcType);
+
+    /**
+     *
+     * @param src yuv格式数据
+     * @param srcWidth 图片宽度
+     * @param srcHeight 图片高度
+     * @param cropX 裁剪后旋转前起始x坐标
+     * @param cropY 裁剪后旋转前起始y坐标
+     * @param cropWidth 裁剪后旋转前图片宽度
+     * @param cropHeight 裁剪后旋转前图片高度
+     * @param rotate 旋转角度
+     * @param srcType 原数据类型，参考video_common.h文件下FourCC类
+     * @return
+     */
+    public static native byte[] convertToARGB(byte[] src, int srcWidth, int srcHeight, int cropX, int cropY, int cropWidth, int cropHeight, int rotate, char[] srcType);
+
+    /**
+     *
+     * @param i420 i420格式数据
+     * @param i420Width i420图片宽度
+     * @param i420Height i420图片高度
+     * @param dstLen 转码后文件大小
+     * @param dstType 转换后数据类型，参考video_common.h文件下FourCC类
+     * @return
+     */
+    public static native byte[] convertFromI420(byte[] i420, int i420Width, int i420Height, long dstLen, char[] dstType);
 
 }

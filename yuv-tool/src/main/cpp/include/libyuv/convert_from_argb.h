@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef INCLUDE_LIBYUV_CONVERT_FROM_ARGB_H_  // NOLINT
+#ifndef INCLUDE_LIBYUV_CONVERT_FROM_ARGB_H_
 #define INCLUDE_LIBYUV_CONVERT_FROM_ARGB_H_
 
 #include "libyuv/basic_types.h"
@@ -99,6 +99,15 @@ int ARGBToI422(const uint8* src_argb, int src_stride_argb,
                uint8* dst_v, int dst_stride_v,
                int width, int height);
 
+// Convert ARGB To I411.
+    LIBYUV_API
+    int ARGBToI411(const uint8* src_argb, int src_stride_argb,
+                   uint8* dst_y, int dst_stride_y,
+                   uint8* dst_u, int dst_stride_u,
+                   uint8* dst_v, int dst_stride_v,
+                   int width, int height);
+
+
 // Convert ARGB To I420. (also in convert.h)
 LIBYUV_API
 int ARGBToI420(const uint8* src_argb, int src_stride_argb,
@@ -119,14 +128,6 @@ int ARGBToJ420(const uint8* src_argb, int src_stride_argb,
 LIBYUV_API
 int ARGBToJ422(const uint8* src_argb, int src_stride_argb,
                uint8* dst_yj, int dst_stride_yj,
-               uint8* dst_u, int dst_stride_u,
-               uint8* dst_v, int dst_stride_v,
-               int width, int height);
-
-// Convert ARGB To I411.
-LIBYUV_API
-int ARGBToI411(const uint8* src_argb, int src_stride_argb,
-               uint8* dst_y, int dst_stride_y,
                uint8* dst_u, int dst_stride_u,
                uint8* dst_v, int dst_stride_v,
                int width, int height);
@@ -187,4 +188,4 @@ int ARGBToUYVY(const uint8* src_argb, int src_stride_argb,
 }  // namespace libyuv
 #endif
 
-#endif  // INCLUDE_LIBYUV_CONVERT_FROM_ARGB_H_  NOLINT
+#endif  // INCLUDE_LIBYUV_CONVERT_FROM_ARGB_H_

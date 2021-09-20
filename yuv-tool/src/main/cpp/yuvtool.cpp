@@ -6,11 +6,6 @@
 #include <string.h>
 #include "libyuv.h"
 
-#define NV21 1
-#define NV12 2
-#define I420 3
-#define RGB_565 4
-#define ARGB_8888 5
 
 bool isEmpty(JNIEnv *env, jbyteArray src, int width, int height);
 
@@ -75,41 +70,6 @@ Java_com_yuv_tool_YuvTool_NV21ToARGB(JNIEnv *env, jclass clazz, jbyteArray nv21,
     if (ret != 0) {
         return NULL;
     }
-    return argb;
-}
-
-extern "C"
-JNIEXPORT jbyteArray JNICALL
-Java_com_yuv_tool_YuvTool_NV21ToARGB_1NEON(JNIEnv *env, jclass clazz, jbyteArray nv21, jint width,
-                                           jint height) {
-    jsize len = env->GetArrayLength(nv21);
-    int size_y = width * height;
-    if (len <= 0) {
-        return NULL;
-    }
-    jbyteArray argb = env->NewByteArray(size_y * 4);
-    unsigned char* nv21_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(nv21, 0));
-    unsigned char* agbr_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
-
-//    int agbr_width = width * 4;
-//    for (int i = 0, j = 1; i < height; i+=2, j+=2) {
-//        int uv_size = size_y + (width * i)/2;
-//        int agbr_left = agbr_width * i;
-//        int agbr_right = agbr_width * j;
-//        libyuv::NV21ToARGBRow_NEON(
-//                nv21_data + (width * i),
-//                nv21_data + uv_size,
-//                agbr_data + agbr_left, width);
-//
-//        libyuv::NV21ToARGBRow_NEON(
-//                nv21_data + (width * j),
-//                nv21_data + uv_size,
-//                agbr_data + agbr_right, width);
-//    }
-
-    env->ReleasePrimitiveArrayCritical(nv21, nv21_data, 0);
-    env->ReleasePrimitiveArrayCritical(argb, agbr_data, 0);
-
     return argb;
 }
 
@@ -2020,4 +1980,201 @@ Java_com_yuv_tool_YuvTool_RGBAToARGB(JNIEnv *env, jclass clazz, jbyteArray rgba,
         return NULL;
     }
     return agbr;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_convertToI420(JNIEnv *env, jclass clazz, jbyteArray src, jint src_width,
+                                        jint src_height, jint crop_x, jint crop_y, jint crop_width, jint crop_height,
+                                        jint rotate, jcharArray src_type) {
+    jsize len = env->GetArrayLength(src);
+    // 旋转用
+    int width_rotate = src_width;
+    int height_rotate = src_height;
+    if (len <= 0) {
+        return NULL;
+    }
+    // 必须为偶数，否则会有锯齿
+    if (crop_x % 2 != 0 || crop_y % 2 != 0) {
+        return NULL;
+    }
+    // 宽高异常
+    if (crop_width + crop_x > src_width || crop_height + crop_y > src_height) {
+        return NULL;
+    }
+
+    // 裁剪操作
+    int width_crop = crop_width;
+    int height_crop = crop_height;
+
+    // 旋转操作
+    libyuv::RotationMode rm;
+    switch (rotate) {
+        case 0:
+            rm = libyuv::kRotate0;
+            width_rotate = width_crop;
+            height_rotate = height_crop;
+            break;
+        case 90:
+            rm = libyuv::kRotate90;
+            width_rotate = height_crop;
+            height_rotate = width_crop;
+            break;
+        case 180:
+            rm = libyuv::kRotate180;
+            width_rotate = width_crop;
+            height_rotate = height_crop;
+            break;
+        case 270:
+            rm = libyuv::kRotate270;
+            width_rotate = height_crop;
+            height_rotate = width_crop;
+            break;
+    }
+    // 计算旋转后的宽高，及需要的yuv计算
+    int width_half = width_rotate >> 1;
+    int size_y = width_rotate * height_rotate;
+    int size_uv = size_y >> 2;
+
+    int new_len = 3 * (size_y >> 1);
+    jbyteArray i420 = env->NewByteArray(new_len);
+    unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
+    unsigned char* src_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(src, 0));
+    unsigned char* type_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(src_type, 0));
+
+    int ret = libyuv::ConvertToI420(src_data, len,
+                                    i420_data, width_rotate,
+                                    i420_data + size_y, width_half,
+                                    i420_data + size_y + size_uv, width_half,
+                                    crop_x, crop_y,
+                                    src_width, src_height,
+                                    width_crop, height_crop, rm, FOURCC(type_data[0], type_data[2], type_data[4], type_data[6])
+    );
+
+    env->ReleasePrimitiveArrayCritical(src, src_data, 0);
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+    env->ReleasePrimitiveArrayCritical(src_type, type_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+
+    return i420;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_convertToARGB(JNIEnv *env, jclass clazz, jbyteArray src, jint src_width,
+                                        jint src_height, jint crop_x, jint crop_y, jint crop_width,
+                                        jint crop_height, jint rotate, jcharArray src_type) {
+    jsize len = env->GetArrayLength(src);
+    // 旋转用
+    int width_rotate = src_width;
+    int height_rotate = src_height;
+    if (len <= 0) {
+        return NULL;
+    }
+    // 必须为偶数，否则会有锯齿
+    if (crop_x % 2 != 0 || crop_y % 2 != 0) {
+        return NULL;
+    }
+    // 宽高异常
+    if (crop_width + crop_x > src_width || crop_height + crop_y > src_height) {
+        return NULL;
+    }
+
+    // 裁剪操作
+    int width_crop = crop_width;
+    int height_crop = crop_height;
+
+    // 旋转操作
+    libyuv::RotationMode rm;
+    switch (rotate) {
+        case 0:
+            rm = libyuv::kRotate0;
+            width_rotate = width_crop;
+            height_rotate = height_crop;
+            break;
+        case 90:
+            rm = libyuv::kRotate90;
+            width_rotate = height_crop;
+            height_rotate = width_crop;
+            break;
+        case 180:
+            rm = libyuv::kRotate180;
+            width_rotate = width_crop;
+            height_rotate = height_crop;
+            break;
+        case 270:
+            rm = libyuv::kRotate270;
+            width_rotate = height_crop;
+            height_rotate = width_crop;
+            break;
+    }
+    // 计算旋转后的宽高，及需要的yuv计算
+    int size_y = width_rotate * height_rotate;
+
+    int new_len = 4 * size_y;
+    jbyteArray argb = env->NewByteArray(new_len);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* src_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(src, 0));
+    unsigned char* type_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(src_type, 0));
+
+    int ret = libyuv::ConvertToARGB(src_data, len,
+                                argb_data, width_rotate * 4,
+                                crop_x, crop_y,
+                                src_width, src_height,
+                                width_crop, height_crop,
+                                rm, FOURCC(type_data[0], type_data[2], type_data[4], type_data[6])
+    );
+
+    env->ReleasePrimitiveArrayCritical(src, src_data, 0);
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(src_type, type_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+
+    return argb;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_convertFromI420(JNIEnv *env, jclass clazz, jbyteArray i420,
+                                          jint i420_width, jint i420_height, jlong dst_len,
+                                          jcharArray dst_type) {
+    jsize len = env->GetArrayLength(i420);
+    int width_half = i420_width >> 1;
+    int size_y = i420_width * i420_height;
+    int size_uv = size_y >> 2;
+
+    // 旋转用
+    int width_rotate = i420_width;
+    int height_rotate = i420_height;
+    if (len <= 0) {
+        return NULL;
+    }
+
+    jbyteArray dst = env->NewByteArray(dst_len);
+    unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
+    unsigned char* dst_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(dst, 0));
+    unsigned char* type_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(dst_type, 0));
+
+    int ret = libyuv::ConvertFromI420(i420_data, i420_width,
+                            i420_data + size_y, width_half,
+                            i420_data + size_y + size_uv, width_half,
+                            dst_data, dst_len, i420_width, i420_height,
+                            FOURCC(type_data[0], type_data[2], type_data[4], type_data[6])
+    );
+
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+    env->ReleasePrimitiveArrayCritical(dst, dst_data, 0);
+    env->ReleasePrimitiveArrayCritical(dst_type, type_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+
+    return dst;
 }

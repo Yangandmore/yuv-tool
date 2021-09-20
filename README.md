@@ -7,12 +7,11 @@ Complete Yuv-tool
 
 ## Support
 It is used for all functions of libyuv in Android, and the conversion tool between YUV and RGB.
+***Note: the libyuv library that this library depends on is not a public version library. The dependent library connections are as follows：***
 
 - [ ] Android Online conversion
 
 - [x] Support architecture: armeabi-v7a, arm64-v8a, x86, x86_64
-
-- [ ] SIMD
 
 - [x] Currently supported formats：
 
@@ -100,6 +99,12 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     | --------- | --------- | ----- |
     |RGBA       | I420      | success|
     |RGBA       | ARGB      | success|
+
+    |  src format  |  dst format | function  |  test  |
+    | --------- | ---------  | ----- | ----- |
+    |XXXX       | I420      | crop、scale | success|
+    |XXXX       | ARGB      | crop、scale | success|
+
 
 ## Coding
 

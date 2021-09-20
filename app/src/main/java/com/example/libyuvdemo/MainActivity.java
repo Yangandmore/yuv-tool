@@ -1,7 +1,9 @@
 package com.example.libyuvdemo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -17,8 +19,8 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int yuvWidth = 256;
-    private int yuvHeight = 256;
+    private int yuvWidth = 640;
+    private int yuvHeight = 360;
 
     private String path;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         path = Environment.getExternalStorageDirectory().getAbsolutePath();
     }
 
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void nv21ToARGB8888Click(View view) throws IOException {
         // 获取文件数据
-        InputStream is = getResources().getAssets().open("yuv/lena_256x256_nv21.yuv");
+        InputStream is = getResources().getAssets().open("yuv/cuc_ieschool_640x360_yuv_nv21.yuv");
         byte[] nv21 = new byte[is.available()];
         is.read(nv21);
         is.close();
@@ -69,29 +72,9 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
 
-    public void nv21ToARGB8888NEONClick(View view) throws IOException {
-        // 获取文件数据
-//        InputStream is = getResources().getAssets().open("yuv/lena_256x256_nv21.yuv");
-//        byte[] nv21 = new byte[is.available()];
-//        is.read(nv21);
-//        is.close();
-//
-//        // 开始转码
-//        byte[] argb_neon = YuvTool.NV21ToARGB_NEON(nv21, yuvWidth, yuvHeight);
-//
-//        // 成功失败提示
-//        File file = new File(path, "lena_256x256_argb8888_neno.rgb");
-//        FileOutputStream fos = new FileOutputStream(file);
-//        fos.write(argb_neon);
-//        fos.flush();
-//        fos.close();
-//
-//        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
-    }
-
     public void nv21ToRG565Click(View view) throws IOException {
         // 获取文件数据
-        InputStream is = getResources().getAssets().open("yuv/lena_256x256_nv21.yuv");
+        InputStream is = getResources().getAssets().open("yuv/test_1920x1080_i420.yuv");
         byte[] nv21 = new byte[is.available()];
         is.read(nv21);
         is.close();
@@ -100,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         byte[] argb = YuvTool.NV21ToRGB565(nv21, yuvWidth, yuvHeight);
 
         // 成功失败提示
-        File file = new File(path, "lena_256x256_rgb565.rgb");
+        File file = new File(path, "lena_1920x1080_rgb565.rgb");
         FileOutputStream fos = new FileOutputStream(file);
         fos.write(argb);
         fos.flush();
@@ -598,9 +581,7 @@ public class MainActivity extends AppCompatActivity {
         is.close();
 
         // 开始转码
-        long time = System.currentTimeMillis();
         byte[] i420_scale = YuvTool.I420Scale(i420, yuvWidth, yuvHeight, yuvWidth >> 1, yuvHeight >> 1, 0);
-        Log.e("-----> scale:", (System.currentTimeMillis() - time)+"");
 
         // 成功失败提示
         File file = new File(path, "lena_256x256_i420_scale.yuv");
@@ -620,9 +601,7 @@ public class MainActivity extends AppCompatActivity {
         is.close();
 
         // 开始转码
-        long time = System.currentTimeMillis();
         byte[] i420_scale = YuvTool.I420Scale_16(i420, yuvWidth, yuvHeight, yuvWidth >> 1, yuvHeight >> 1, 0);
-        Log.e("-----> scale_16:", (System.currentTimeMillis() - time)+"");
 
         // 成功失败提示
         File file = new File(path, "lena_256x256_i420_scale_16.yuv");
@@ -888,7 +867,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
-
 
     public void argbToI420Click(View view) throws IOException {
         // 获取文件数据
@@ -1249,5 +1227,69 @@ public class MainActivity extends AppCompatActivity {
         fos.close();
 
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void toI420(View view) throws IOException {
+        InputStream is = getResources().getAssets().open("yuv/cuc_ieschool_640x360_yuv_nv21.yuv");
+        byte[] nv21 = new byte[is.available()];
+        is.read(nv21);
+        is.close();
+
+        // 开始转码
+        byte[] i420 = YuvTool.convertToI420(nv21, yuvWidth, yuvHeight, 512, 8, 120, 40, 0, new char[]{'N', 'V', '2', '1'});
+
+        // 成功失败提示Ll
+        File file = new File(path, "cuc_ieschool_640x360_yuv_I420.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(i420);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void toARGB(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/cuc_ieschool_640x360_yuv420p.yuv");
+        byte[] nv21 = new byte[is.available()];
+        is.read(nv21);
+        is.close();
+
+        // 开始转码
+        byte[] argb = YuvTool.convertToARGB(nv21, yuvWidth, yuvHeight, 540, 10, 100, 100, 90, new char[]{'I', '4', '2', '0'});
+
+        // 成功失败提示Ll
+        File file = new File(path, "cuc_ieschool_640x360_argb.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(argb);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void fromI420(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        byte[] i420 = new byte[is.available()];
+        is.read(i420);
+        is.close();
+
+        // 开始转码
+        byte[] dst = YuvTool.convertFromI420(i420, yuvWidth, yuvHeight, yuvWidth * yuvHeight * 3 / 2, new char[]{'N', 'V', '2', '1'});
+
+        // 成功失败提示
+        File file = new File(path, "cuc_ieschool_640x360_yuv_nv21.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(dst);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void fromARGB(View view) {
+
     }
 }

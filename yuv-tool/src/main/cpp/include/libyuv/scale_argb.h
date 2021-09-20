@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef INCLUDE_LIBYUV_SCALE_ARGB_H_  // NOLINT
+#ifndef INCLUDE_LIBYUV_SCALE_ARGB_H_
 #define INCLUDE_LIBYUV_SCALE_ARGB_H_
 
 #include "libyuv/basic_types.h"
@@ -35,7 +35,6 @@ int ARGBScaleClip(const uint8* src_argb, int src_stride_argb,
                   int clip_x, int clip_y, int clip_width, int clip_height,
                   enum FilterMode filtering);
 
-// TODO(fbarchard): Implement this.
 // Scale with YUV conversion to ARGB and clipping.
 LIBYUV_API
 int YUVToARGBScaleClip(const uint8* src_y, int src_stride_y,
@@ -54,4 +53,4 @@ int YUVToARGBScaleClip(const uint8* src_y, int src_stride_y,
 }  // namespace libyuv
 #endif
 
-#endif  // INCLUDE_LIBYUV_SCALE_ARGB_H_  NOLINT
+#endif  // INCLUDE_LIBYUV_SCALE_ARGB_H_
