@@ -5,6 +5,7 @@
 ## 支持
 用于android中的libyuv所有功能，在yuv、rgb等之间的转换工具。尽量满足内部所有函数的清晰使用。
 ***注意：此库所依赖的libyuv库并非公版库，依赖库连接如下：***
+[libyuv]<https://github.com/Yangandmore/libyuv_original>
 
 * [ ] Android实时转换查看
 
