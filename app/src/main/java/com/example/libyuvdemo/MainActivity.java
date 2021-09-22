@@ -19,8 +19,8 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int yuvWidth = 640;
-    private int yuvHeight = 360;
+    private int yuvWidth = 256;
+    private int yuvHeight = 256;
 
     private String path;
 
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void i420ToI400Click(View view) throws IOException {
         // 获取文件数据
-        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
+        InputStream is = getResources().getAssets().open("yuv/test_1188x1869_i420.yuv");
         byte[] i420 = new byte[is.available()];
         is.read(i420);
         is.close();
@@ -1277,7 +1277,7 @@ public class MainActivity extends AppCompatActivity {
         is.close();
 
         // 开始转码
-        byte[] dst = YuvTool.convertFromI420(i420, yuvWidth, yuvHeight, yuvWidth * yuvHeight * 3 / 2, new char[]{'N', 'V', '2', '1'});
+        byte[] dst = YuvTool.convertFromI420(i420, yuvWidth, yuvHeight, yuvWidth * yuvHeight * 3 / 2, yuvWidth, new char[]{'N', 'V', '2', '1'});
 
         // 成功失败提示
         File file = new File(path, "cuc_ieschool_640x360_yuv_nv21.yuv");
@@ -1289,7 +1289,4 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
 
-    public void fromARGB(View view) {
-
-    }
 }

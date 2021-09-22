@@ -109,9 +109,21 @@ public class YuvTool {
      * @param i420Width i420图片宽度
      * @param i420Height i420图片高度
      * @param dstLen 转码后文件大小
+     * @param dstStrideWidth 转码后图片的图位宽度
      * @param dstType 转换后数据类型，参考video_common.h文件下FourCC类
      * @return
      */
-    public static native byte[] convertFromI420(byte[] i420, int i420Width, int i420Height, long dstLen, char[] dstType);
+    public static native byte[] convertFromI420(byte[] i420, int i420Width, int i420Height, long dstLen, int dstStrideWidth, char[] dstType);
 
+    /**
+     *
+     * @param argb argb数据
+     * @param argbWidth argb图片宽度
+     * @param argbHeight argb图片高度
+     * @param dstLen 转码后文件大小
+     * @param dstStrideWidth 转码后图片的图位宽度
+     * @param dstType 转换后数据类型，参考video_common.h文件下FourCC类
+     * @return
+     */
+    public static native byte[] convertFromARGB(byte[] argb, int argbWidth, int argbHeight, long dstLen, int dstStrideWidth, char[] dstType);
 }

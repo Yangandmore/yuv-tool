@@ -2143,15 +2143,13 @@ extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_yuv_tool_YuvTool_convertFromI420(JNIEnv *env, jclass clazz, jbyteArray i420,
                                           jint i420_width, jint i420_height, jlong dst_len,
+                                          jint dst_stride_width,
                                           jcharArray dst_type) {
     jsize len = env->GetArrayLength(i420);
     int width_half = i420_width >> 1;
     int size_y = i420_width * i420_height;
     int size_uv = size_y >> 2;
 
-    // 旋转用
-    int width_rotate = i420_width;
-    int height_rotate = i420_height;
     if (len <= 0) {
         return NULL;
     }
@@ -2164,7 +2162,7 @@ Java_com_yuv_tool_YuvTool_convertFromI420(JNIEnv *env, jclass clazz, jbyteArray 
     int ret = libyuv::ConvertFromI420(i420_data, i420_width,
                             i420_data + size_y, width_half,
                             i420_data + size_y + size_uv, width_half,
-                            dst_data, dst_len, i420_width, i420_height,
+                            dst_data, dst_stride_width, i420_width, i420_height,
                             FOURCC(type_data[0], type_data[2], type_data[4], type_data[6])
     );
 

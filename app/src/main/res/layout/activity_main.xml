@@ -458,13 +458,6 @@
                 android:text="I420旋转裁剪为"
                 android:onClick="fromI420"/>
 
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ARGB旋转裁剪为"
-                android:onClick="fromARGB"/>
-
         </LinearLayout>
 
     </ScrollView>

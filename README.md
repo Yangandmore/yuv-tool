@@ -107,6 +107,10 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |XXXX       | ARGB      | crop、scale | success|
 
 
+    |  src format  |  dst format |  test  |
+    | --------- | ---------  | ----- |
+    |I420       | xxxx      | success|
+
 ## Coding
 
 ```gradle
