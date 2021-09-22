@@ -504,7 +504,7 @@ public class MainActivity extends AppCompatActivity {
         byte[] raw = YuvTool.I420ToRAW(i420, yuvWidth, yuvHeight);
 
         // 成功失败提示
-        File file = new File(path, "lena_256x256_raw.yuv");
+        File file = new File(path, "lena_256x256_raw.rgb");
         FileOutputStream fos = new FileOutputStream(file);
         fos.write(raw);
         fos.flush();
