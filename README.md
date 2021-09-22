@@ -35,7 +35,7 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |I420       | NV21      |  success  |
     |I420       | NV12      |  success  |
     |I420       | ARGB      |  success  |
-    |I420       | ARGB4444  |  fail  |
+    |I420       | ARGB4444  |  success  |
     |I420       | RGB565    |  success  |
     |I420       | I400      |  success  |
     |I420       | I411      |  false  |
@@ -95,6 +95,11 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |ARGB       |    mirror    | success  |
     |ARGB       |    rotate    | success  |
     |ARGB       |    scale    | success  |
+
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
+    |ARGB4444   | I420      | success|
+    |ARGB4444   | ARGB      | success|
 
     |  src format  |  dst format  |  test  |
     | --------- | --------- | ----- |

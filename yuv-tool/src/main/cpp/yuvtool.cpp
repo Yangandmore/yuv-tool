@@ -1924,6 +1924,72 @@ Java_com_yuv_tool_YuvTool_ARGBScale(JNIEnv *env, jclass clazz, jbyteArray argb, 
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGB4444ToI420(JNIEnv *env, jclass clazz, jbyteArray argb4444, jint width,
+                                         jint height) {
+    jsize len = env->GetArrayLength(argb4444);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = size_y >> 2;
+
+    if (len <= 0) {
+        return NULL;
+    }
+
+    jbyteArray i420 = env->NewByteArray(size_y * 3 / 2);
+    unsigned char* argb4444_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb4444, 0));
+    unsigned char* i420_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(i420, 0));
+
+    int ret = libyuv::ARGB4444ToI420(
+            argb4444_data, width * 2,
+            i420_data, width,
+            i420_data + size_y, width_half,
+            i420_data + size_y + size_uv, width_half,
+            width, height
+            );
+
+    env->ReleasePrimitiveArrayCritical(i420, i420_data, 0);
+    env->ReleasePrimitiveArrayCritical(argb4444, argb4444_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+
+    return i420;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGB4444ToARGB8888(JNIEnv *env, jclass clazz, jbyteArray argb4444,
+                                             jint width, jint height) {
+    jsize len = env->GetArrayLength(argb4444);
+    int size_y = width * height;
+
+    if (len <= 0) {
+        return NULL;
+    }
+
+    jbyteArray argb8888 = env->NewByteArray(size_y * 4);
+    unsigned char* argb4444_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb4444, 0));
+    unsigned char* argb8888_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb8888, 0));
+
+    int ret = libyuv::ARGB4444ToARGB(
+            argb4444_data, width * 2,
+            argb8888_data, width * 4,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb8888, argb8888_data, 0);
+    env->ReleasePrimitiveArrayCritical(argb4444, argb4444_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+
+    return argb8888;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
 Java_com_yuv_tool_YuvTool_RGBAToI420(JNIEnv *env, jclass clazz, jbyteArray rgba, jint width,
                                      jint height) {
     jsize len = env->GetArrayLength(rgba);
