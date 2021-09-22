@@ -101,6 +101,12 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |RGBA       | I420      | success|
     |RGBA       | ARGB      | success|
 
+    |  src format  |  dst format |  test  |
+    | --------- | ---------  | ----- |
+    |RAW       | I420      | success|
+    |RAW       | ARGB      | success|
+    |RAW       | RGB24      | success|
+
     |  src format  |  dst format | function  |  test  |
     | --------- | ---------  | ----- | ----- |
     |XXXX       | I420      | crop、scale | success|

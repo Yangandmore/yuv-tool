@@ -443,7 +443,21 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="RAW -> I420"
+                android:onClick="rawToI420Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RAW -> ARGB"
+                android:onClick="rawToARGBClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RAW -> RGB24"
+                android:onClick="rawToRGB24Click"/>
 
             <TextView
                 android:layout_width="match_parent"

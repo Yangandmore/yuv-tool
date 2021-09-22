@@ -1229,6 +1229,66 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
 
+    public void rawToI420Click(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("raw/lena_256x256_raw.rgb");
+        byte[] raw = new byte[is.available()];
+        is.read(raw);
+        is.close();
+
+        // 开始转码
+        byte[] i420 = YuvTool.RAWToI420(raw, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_i420.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(i420);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void rawToARGBClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("raw/lena_256x256_raw.rgb");
+        byte[] raw = new byte[is.available()];
+        is.read(raw);
+        is.close();
+
+        // 开始转码
+        byte[] argb = YuvTool.RAWToARGB(raw, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_argb.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(argb);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void rawToRGB24Click(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("raw/lena_256x256_raw.rgb");
+        byte[] raw = new byte[is.available()];
+        is.read(raw);
+        is.close();
+
+        // 开始转码
+        byte[] rgb24 = YuvTool.RAWToRGB24(raw, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_rgb24.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(rgb24);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
     public void toI420(View view) throws IOException {
         InputStream is = getResources().getAssets().open("yuv/cuc_ieschool_640x360_yuv_nv21.yuv");
         byte[] nv21 = new byte[is.available()];
