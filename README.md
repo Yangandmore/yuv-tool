@@ -48,7 +48,7 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |I420       | ABGR      |  success  |
     |I420       | ABGR1555  | fail  |
     |I420       | YUY2(YUYV)|  success  |
-    |I420       |    raw    | fail  |
+    |I420       |    raw    | success  |
     |I420       | copy | success  |
     |I420       | mirror | success  |
     |I420       | rotate | success  |

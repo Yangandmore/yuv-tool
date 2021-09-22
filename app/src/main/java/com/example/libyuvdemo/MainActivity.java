@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void i420ToI400Click(View view) throws IOException {
         // 获取文件数据
-        InputStream is = getResources().getAssets().open("yuv/test_1188x1869_i420.yuv");
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_yuv420p.yuv");
         byte[] i420 = new byte[is.available()];
         is.read(i420);
         is.close();
@@ -504,7 +504,7 @@ public class MainActivity extends AppCompatActivity {
         byte[] raw = YuvTool.I420ToRAW(i420, yuvWidth, yuvHeight);
 
         // 成功失败提示
-        File file = new File(path, "lena_256x256_raw.raw");
+        File file = new File(path, "lena_256x256_raw.yuv");
         FileOutputStream fos = new FileOutputStream(file);
         fos.write(raw);
         fos.flush();

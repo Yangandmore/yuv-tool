@@ -435,10 +435,20 @@
                 android:text="RGBA -> AGBR"
                 android:onClick="rgbaToAGBRClick"/>
 
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="裁剪"/>
+                android:text="RAW转码"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="裁剪及Convert操作"/>
 
             <Button
                 android:layout_width="match_parent"
