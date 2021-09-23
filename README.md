@@ -38,7 +38,7 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |I420       | ARGB4444  |  success  |
     |I420       | RGB565    |  success  |
     |I420       | I400      |  success  |
-    |I420       | I411      |  false  |
+    |I420       | I411      |  success  |
     |I420       | I422      | success  |
     |I420       | I444      |  success  |
     |I420       | UYVY      |  success  |
@@ -46,7 +46,7 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |I420       | BGRA      |  success  |
     |I420       | RGB24     |  success  |
     |I420       | ABGR      |  success  |
-    |I420       | ABGR1555  | fail  |
+    |I420       | ABGR1555  | NoTest  |
     |I420       | YUY2(YUYV)|  success  |
     |I420       |    raw    | success  |
     |I420       | copy | success  |
@@ -56,7 +56,7 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |I420       | scale_16(short) | success  |
     |I420       |    Psnr    | success  |
     |I420       |    Ssim    | success  |
-    |I420       |    Rect    | fail  |
+    |I420       |    Rect    | NoTest  |
 
     |  src format  |  dst format  |  test  |
     | --------- | --------- | ----- |
@@ -81,7 +81,7 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |ARGB       |    UYVY    | success  |
     |ARGB       |    I420    | success  |
     |ARGB       |    I400    | success  |
-    |ARGB       |    I411    | false  |
+    |ARGB       |    I411    | success  |
     |ARGB       |    I422    | success  |
     |ARGB       |    I444    | success  |
     |ARGB       |    ABGR    | success  |
@@ -89,8 +89,8 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |ARGB       |    RGBA    | success  |
     |ARGB       |    RGB24    | success  |
     |ARGB       |    RGB565    | success  |
-    |ARGB       |    ARGB1555    | fail  |
-    |ARGB       |    ARGB4444    |  fail  |
+    |ARGB       |    ARGB1555    | NoTest  |
+    |ARGB       |    ARGB4444    |  success  |
     |ARGB       |    copy    | success  |
     |ARGB       |    mirror    | success  |
     |ARGB       |    rotate    | success  |
