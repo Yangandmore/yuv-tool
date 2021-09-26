@@ -56,6 +56,17 @@ public class YuvTool {
     public static native byte[] I400ToARGB(byte[] i400, int width, int height);
     public static native byte[] I400ToMirror(byte[] i400, int width, int height);
 
+    public static native byte[] YUY2ToI420(byte[] yuy2, int width, int height);
+    public static native byte[] YUY2ToI422(byte[] yuy2, int width, int height);
+    public static native byte[] YUY2ToNV12(byte[] yuy2, int width, int height);
+    public static native byte[] YUY2ToY(byte[] yuy2, int width, int height);
+    public static native byte[] YUY2ToARGB(byte[] yuy2, int width, int height);
+
+    public static native byte[] UYVYToI420(byte[] uyvy, int width, int height);
+    public static native byte[] UYVYToI422(byte[] uyvy, int width, int height);
+    public static native byte[] UYVYToNV12(byte[] uyvy, int width, int height);
+    public static native byte[] UYVYToARGB(byte[] uyvy, int width, int height);
+
     public static native byte[] RGB24ToI420(byte[] rgb24, int width, int height);
     public static native byte[] RGB24ToARGB(byte[] rgb24, int width, int height);
 

@@ -338,6 +338,70 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="YUY2转码"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="YUY2 -> I420"
+                android:onClick="yuy2ToI420Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="YUY2 -> I422"
+                android:onClick="yuy2ToI422Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="YUY2 -> NV12"
+                android:onClick="yuy2ToNV12Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="YUY2 -> Y"
+                android:onClick="yuy2ToYClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="YUY2 -> ARGB"
+                android:onClick="yuy2ToARGBClick"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UYVY转码"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UYVY -> I420"
+                android:onClick="uyvyToI420Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UYVY -> I422"
+                android:onClick="uyvyToI422Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UYVY -> NV12"
+                android:onClick="uyvyToNV12Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UYVY -> ARGB"
+                android:onClick="uyvyToARGBClick"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="RGB24转码"/>
 
             <Button

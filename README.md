@@ -82,6 +82,21 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
 
     |  src format  |  dst format  |  test  |
     | --------- | --------- | ----- |
+    |YUY2       | I420      |  success  |
+    |YUY2       | I422      |  success  |
+    |YUY2       | NV12      |  success  |
+    |YUY2       | Y         |  success  |
+    |YUY2       | ARGB      |  success  |
+
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
+    |UYVY       | I420      |  success  |
+    |UYVY       | I422      |  success  |
+    |UYVY       | NV12      |  success  |
+    |UYVY       | ARGB      |  success  |
+
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
     |RGB24       |    I420    | success  |
     |RGB24       |    ARGB    | success  |
 
