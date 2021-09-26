@@ -14,6 +14,18 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
 
 - [x] Support architecture: armeabi-v7a, arm64-v8a, x86, x86_64
 
+- [ ] compare.h
+- [ ] convert.h
+- [ ] convert_argb.h
+- [ ] convert_from.h
+- [ ] convert_from_argb.h
+- [ ] planar_functions.h
+- [ ] rotate.h
+- [ ] rotate_argb.h
+- [ ] scale.h
+- [ ] scale_argb.h
+- [ ] version.h
+
 - [x] Currently supported formats：
 
     |  src format  |  dst format  |  test  |

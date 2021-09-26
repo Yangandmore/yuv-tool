@@ -7,9 +7,21 @@
 ***注意：此库所依赖的libyuv库并非公版库，依赖库连接如下：***
 [libyuv]<https://github.com/Yangandmore/libyuv_original>
 
-* [ ] Android实时转换查看
+- [ ] Android实时转换查看
 
-* [x] 支持架构: armeabi-v7a, arm64-v8a, x86, x86_64
+- [x] 支持架构: armeabi-v7a, arm64-v8a, x86, x86_64
+
+- [ ] compare.h
+- [ ] convert.h
+- [ ] convert_argb.h
+- [ ] convert_from.h
+- [ ] convert_from_argb.h
+- [ ] planar_functions.h
+- [ ] rotate.h
+- [ ] rotate_argb.h
+- [ ] scale.h
+- [ ] scale_argb.h
+- [ ] version.h
 
 - [x] 当前支持以下格式转换方式：
 
