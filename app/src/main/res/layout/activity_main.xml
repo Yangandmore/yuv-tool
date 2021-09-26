@@ -245,6 +245,99 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="I444转码"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I444 -> I420"
+                android:onClick="i444ToI420Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I444 -> ARGB"
+                android:onClick="i444ToARGBClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I444 -> ABGR"
+                android:onClick="i444ToABGRClick"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I422转码"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I422 -> I420"
+                android:onClick="i422ToI420Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I422 -> ABGR"
+                android:onClick="i422ToABGRClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I422 -> BGRA"
+                android:onClick="i422ToBGRAClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I422 -> RGBA"
+                android:onClick="i422ToRGBAClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I422 -> ARGB"
+                android:onClick="i422ToARGBClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I422 -> UYVY"
+                android:onClick="i422ToUYVYClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I422 -> YUY2"
+                android:onClick="i422ToYUY2Click"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I400转码"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I400 -> I420"
+                android:onClick="i400ToI420Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I400 -> ARGB"
+                android:onClick="i400ToARGBClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I400 -> Mirror"
+                android:onClick="i400ToMirrorClick"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="RGB24转码"/>
 
             <Button
@@ -451,7 +544,6 @@
                 android:layout_height="wrap_content"
                 android:text="RGBA -> AGBR"
                 android:onClick="rgbaToAGBRClick"/>
-
 
             <TextView
                 android:layout_width="match_parent"

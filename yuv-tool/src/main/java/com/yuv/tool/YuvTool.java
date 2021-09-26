@@ -40,6 +40,22 @@ public class YuvTool {
     public static native double I420Ssim(byte[] i420A, byte[] i420B, int width, int height); // 结构相似性(较好地反映人眼主观感受),值越大，视频质量越好(0-1)
     public static native int I420Rect(byte[] i420, int width, int height, int x, int y, int rectW, int rectH, int rectY, int rectU, int rectV);
 
+    public static native byte[] I444ToI420(byte[] i444, int width, int height);
+    public static native byte[] I444ToARGB(byte[] i444, int width, int height);
+    public static native byte[] I444ToAGBR(byte[] i444, int width, int height);
+
+    public static native byte[] I422ToI420(byte[] i422, int width, int height);
+    public static native byte[] I422ToABGR(byte[] i422, int width, int height);
+    public static native byte[] I422ToBGRA(byte[] i422, int width, int height);
+    public static native byte[] I422ToRGBA(byte[] i422, int width, int height);
+    public static native byte[] I422ToARGB(byte[] i422, int width, int height);
+    public static native byte[] I422ToUYVY(byte[] i422, int width, int height);
+    public static native byte[] I422ToYUY2(byte[] i422, int width, int height);
+
+    public static native byte[] I400ToI420(byte[] i400, int width, int height);
+    public static native byte[] I400ToARGB(byte[] i400, int width, int height);
+    public static native byte[] I400ToMirror(byte[] i400, int width, int height);
+
     public static native byte[] RGB24ToI420(byte[] rgb24, int width, int height);
     public static native byte[] RGB24ToARGB(byte[] rgb24, int width, int height);
 

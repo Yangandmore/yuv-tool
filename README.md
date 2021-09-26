@@ -60,6 +60,28 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
 
     |  src format  |  dst format  |  test  |
     | --------- | --------- | ----- |
+    |I444       | I420      |  success  |
+    |I444       | ARGB      |  success  |
+    |I444       | ABGR      |  success  |
+
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
+    |I422       | I420      |  success  |
+    |I422       | ABGR      |  success  |
+    |I422       | BGRA      |  success  |
+    |I422       | RGBA      |  success  |
+    |I422       | ARGB      |  success  |
+    |I422       | UYVY      |  success  |
+    |I422       | YUY2      |  success  |
+
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
+    |I400       | I420      |  success  |
+    |I400       | ARGB      |  success  |
+    |I400       | mirror      |  success  |
+
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
     |RGB24       |    I420    | success  |
     |RGB24       |    ARGB    | success  |
 
