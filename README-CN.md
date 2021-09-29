@@ -18,7 +18,7 @@
 - [ ] convert_from_argb.h
 - [ ] planar_functions.h
 - [ ] rotate.h
-- [ ] rotate_argb.h
+- [x] rotate_argb.h
 - [ ] scale.h
 - [ ] scale_argb.h
 - [ ] version.h
@@ -140,6 +140,7 @@
     |ARGB       |    J400    | 完成  |
     |ARGB       |    J420    | 完成  |
     |ARGB       |    J422    | 完成  |
+    |ARGB       |    RAW    | 完成  |
     |ARGB       |    copy(复制)    | 完成  |
     |ARGB       |    mirror(镜像)    | 完成  |
     |ARGB       |    rotate(旋转)    | 完成  |

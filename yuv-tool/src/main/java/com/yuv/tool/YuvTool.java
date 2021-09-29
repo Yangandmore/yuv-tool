@@ -95,6 +95,7 @@ public class YuvTool {
     public static native byte[] ARGBToJ400(byte[] argb, int width, int height);
     public static native byte[] ARGBToJ420(byte[] argb, int width, int height);
     public static native byte[] ARGBToJ422(byte[] argb, int width, int height);
+    public static native byte[] ARGBToRAW(byte[] argb, int width, int height);
     public static native byte[] ARGBCopy(byte[] argb, int width, int height);
     public static native byte[] ARGBMirror(byte[] argb, int width, int height);
     public static native byte[] ARGBRotate(byte[] argb, int width, int height, int rotate);

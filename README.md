@@ -21,7 +21,7 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
 - [ ] convert_from_argb.h
 - [ ] planar_functions.h
 - [ ] rotate.h
-- [ ] rotate_argb.h
+- [x] rotate_argb.h
 - [ ] scale.h
 - [ ] scale_argb.h
 - [ ] version.h
@@ -143,6 +143,7 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |ARGB       |    J400    | success  |
     |ARGB       |    J420    | success  |
     |ARGB       |    J422    | success  |
+    |ARGB       |    RAW     | success  |
     |ARGB       |    copy    | success  |
     |ARGB       |    mirror    | success  |
     |ARGB       |    rotate    | success  |

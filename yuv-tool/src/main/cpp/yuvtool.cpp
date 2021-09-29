@@ -2584,6 +2584,37 @@ Java_com_yuv_tool_YuvTool_ARGBToJ422(JNIEnv *env, jclass clazz, jbyteArray argb,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
+Java_com_yuv_tool_YuvTool_ARGBToRAW(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
+                                    jint height) {
+    jsize len = env->GetArrayLength(argb);
+    int width_half = width >> 1;
+    int size_y = width * height;
+    int size_uv = size_y >> 2;
+
+    if (len <= 0) {
+        return NULL;
+    }
+    jbyteArray raw = env->NewByteArray(size_y * 3);
+    unsigned char* argb_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(argb, 0));
+    unsigned char* raw_data = static_cast<unsigned char *>(env->GetPrimitiveArrayCritical(raw, 0));
+
+    int ret = libyuv::ARGBToRAW(
+            argb_data, width * 4,
+            raw_data, width * 3,
+            width, height
+    );
+
+    env->ReleasePrimitiveArrayCritical(argb, argb_data, 0);
+    env->ReleasePrimitiveArrayCritical(raw, raw_data, 0);
+
+    if (ret != 0) {
+        return NULL;
+    }
+    return raw;
+}
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
 Java_com_yuv_tool_YuvTool_ARGBCopy(JNIEnv *env, jclass clazz, jbyteArray argb, jint width,
                                    jint height) {
     jsize len = env->GetArrayLength(argb);

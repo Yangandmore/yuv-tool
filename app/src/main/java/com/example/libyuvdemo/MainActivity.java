@@ -1569,6 +1569,27 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
 
+    public void argbToRAWClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("rgb/lena_256x256_argb.rgb");
+        byte[] argb = new byte[is.available()];
+        is.read(argb);
+        is.close();
+
+        // 开始转码
+        byte[] raw = YuvTool.ARGBToRAW(argb, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_raw.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(raw);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+
+    }
+
     public void argbToJ420Click(View view) throws IOException {
         // 获取文件数据
         InputStream is = getResources().getAssets().open("rgb/lena_256x256_argb.rgb");
@@ -2068,4 +2089,5 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
+
 }
