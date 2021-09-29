@@ -578,6 +578,23 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="BGRA转码"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="BGRA -> I420"
+                android:onClick="bgraToI420Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="BGRA -> ARGB"
+                android:onClick="bgraToARGBClick"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="ARGB4444转码"/>
 
             <Button
@@ -608,6 +625,23 @@
                 android:layout_height="wrap_content"
                 android:text="RGBA -> AGBR"
                 android:onClick="rgbaToAGBRClick"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB1555转码"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB1555 -> I420"
+                android:onClick="argb1555ToI420Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB1555 -> ARGB"
+                android:onClick="argb1555ToARGBClick"/>
 
             <TextView
                 android:layout_width="match_parent"

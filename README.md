@@ -15,7 +15,7 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
 - [x] Support architecture: armeabi-v7a, arm64-v8a, x86, x86_64
 
 - [ ] compare.h
-- [ ] convert.h
+- [x] convert.h
 - [ ] convert_argb.h
 - [ ] convert_from.h
 - [ ] convert_from_argb.h
@@ -58,7 +58,7 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |I420       | BGRA      |  success  |
     |I420       | RGB24     |  success  |
     |I420       | ABGR      |  success  |
-    |I420       | ABGR1555  | NoTest  |
+    |I420       | ABGR1555  | 完成  |
     |I420       | YUY2(YUYV)|  success  |
     |I420       |    raw    | success  |
     |I420       | copy | success  |
@@ -138,12 +138,17 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |ARGB       |    RGBA    | success  |
     |ARGB       |    RGB24    | success  |
     |ARGB       |    RGB565    | success  |
-    |ARGB       |    ARGB1555    | NoTest  |
+    |ARGB       |    ARGB1555    | success  |
     |ARGB       |    ARGB4444    |  success  |
     |ARGB       |    copy    | success  |
     |ARGB       |    mirror    | success  |
     |ARGB       |    rotate    | success  |
     |ARGB       |    scale    | success  |
+
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
+    |BGRA       | I420      | success|
+    |BGRA       | ARGB      | success|
 
     |  src format  |  dst format  |  test  |
     | --------- | --------- | ----- |
@@ -154,6 +159,11 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     | --------- | --------- | ----- |
     |RGBA       | I420      | success|
     |RGBA       | ARGB      | success|
+
+    |  src format  |  dst format  |  test  |
+    | --------- | --------- | ----- |
+    |ARGB1555   | I420      | success|
+    |ARGB1555   | ARGB      | success|
 
     |  src format  |  dst format |  test  |
     | --------- | ---------  | ----- |
