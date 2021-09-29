@@ -554,6 +554,24 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="ARGB -> J400"
+                android:onClick="argbToJ400Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> J420"
+                android:onClick="argbToJ420Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ARGB -> J422"
+                android:onClick="argbToJ422Click"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="ARGB -> Copy"
                 android:onClick="argbToCopyClick"/>
 
@@ -688,6 +706,27 @@
                 android:layout_height="wrap_content"
                 android:text="I420旋转裁剪为"
                 android:onClick="fromI420"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="J400转码"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="J400 -> ARGB"
+                android:onClick="j420ToARGBClick"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="J420转码"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="J422转码"/>
 
         </LinearLayout>
 

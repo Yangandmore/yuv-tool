@@ -140,6 +140,9 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     |ARGB       |    RGB565    | success  |
     |ARGB       |    ARGB1555    | success  |
     |ARGB       |    ARGB4444    |  success  |
+    |ARGB       |    J400    | success  |
+    |ARGB       |    J420    | success  |
+    |ARGB       |    J422    | success  |
     |ARGB       |    copy    | success  |
     |ARGB       |    mirror    | success  |
     |ARGB       |    rotate    | success  |

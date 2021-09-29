@@ -137,6 +137,9 @@
     |ARGB       |    RGB565    | 完成  |
     |ARGB       |    ARGB1555    | 完成  |
     |ARGB       |    ARGB4444    | 完成  |
+    |ARGB       |    J400    | 完成  |
+    |ARGB       |    J420    | 完成  |
+    |ARGB       |    J422    | 完成  |
     |ARGB       |    copy(复制)    | 完成  |
     |ARGB       |    mirror(镜像)    | 完成  |
     |ARGB       |    rotate(旋转)    | 完成  |

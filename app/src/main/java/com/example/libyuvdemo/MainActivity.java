@@ -1549,6 +1549,65 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
 
+    public void argbToJ400Click(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("rgb/lena_256x256_argb.rgb");
+        byte[] argb = new byte[is.available()];
+        is.read(argb);
+        is.close();
+
+        // 开始转码
+        byte[] j400 = YuvTool.ARGBToJ400(argb, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_j400.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(j400);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void argbToJ420Click(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("rgb/lena_256x256_argb.rgb");
+        byte[] argb = new byte[is.available()];
+        is.read(argb);
+        is.close();
+
+        // 开始转码
+        byte[] j420 = YuvTool.ARGBToJ420(argb, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_j420.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(j420);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void argbToJ422Click(View view) throws IOException {
+        InputStream is = getResources().getAssets().open("rgb/lena_256x256_argb.rgb");
+        byte[] argb = new byte[is.available()];
+        is.read(argb);
+        is.close();
+
+        // 开始转码
+        byte[] j422 = YuvTool.ARGBToJ422(argb, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "lena_256x256_j422.yuv");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(j422);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
     public void argbToCopyClick(View view) throws IOException {
         // 获取文件数据
         InputStream is = getResources().getAssets().open("rgb/lena_256x256_argb.rgb");
@@ -1910,4 +1969,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
 
+    public void j420ToARGBClick(View view) {
+
+    }
 }
