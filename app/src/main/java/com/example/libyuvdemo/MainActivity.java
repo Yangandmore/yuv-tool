@@ -1969,7 +1969,103 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
 
-    public void j420ToARGBClick(View view) {
+    public void j400ToARGBClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_j400.yuv");
+        byte[] j400 = new byte[is.available()];
+        is.read(j400);
+        is.close();
 
+        // 开始转码
+        byte[] argb = YuvTool.J400ToARGB(j400, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "cuc_ieschool_256x256_argb.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(argb);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void j420ToARGBClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_j420.yuv");
+        byte[] j420 = new byte[is.available()];
+        is.read(j420);
+        is.close();
+
+        // 开始转码
+        byte[] argb = YuvTool.J420ToARGB(j420, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "cuc_ieschool_256x256_argb.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(argb);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void j420ToABGRClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_j420.yuv");
+        byte[] j420 = new byte[is.available()];
+        is.read(j420);
+        is.close();
+
+        // 开始转码
+        byte[] abgr = YuvTool.J420ToABGR(j420, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "cuc_ieschool_256x256_abgr.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(abgr);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void j422ToARGBClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_j422.yuv");
+        byte[] j422 = new byte[is.available()];
+        is.read(j422);
+        is.close();
+
+        // 开始转码
+        byte[] argb = YuvTool.J422ToARGB(j422, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "cuc_ieschool_256x256_argb.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(argb);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void j422ToABGRClick(View view) throws IOException {
+        // 获取文件数据
+        InputStream is = getResources().getAssets().open("yuv/lena_256x256_j422.yuv");
+        byte[] j422 = new byte[is.available()];
+        is.read(j422);
+        is.close();
+
+        // 开始转码
+        byte[] abgr = YuvTool.J422ToABGR(j422, yuvWidth, yuvHeight);
+
+        // 成功失败提示
+        File file = new File(path, "cuc_ieschool_256x256_abgr.rgb");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(abgr);
+        fos.flush();
+        fos.close();
+
+        Toast.makeText(this, "转码成功", Toast.LENGTH_SHORT).show();
     }
 }

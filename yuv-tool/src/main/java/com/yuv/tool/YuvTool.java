@@ -157,4 +157,10 @@ public class YuvTool {
      * @return
      */
     public static native byte[] convertFromI420(byte[] i420, int i420Width, int i420Height, long dstLen, int dstStrideWidth, char[] dstType);
+
+    public static native byte[] J400ToARGB(byte[] j400, int width, int height);
+    public static native byte[] J420ToARGB(byte[] j420, int width, int height);
+    public static native byte[] J420ToABGR(byte[] j420, int width, int height);
+    public static native byte[] J422ToARGB(byte[] j422, int width, int height);
+    public static native byte[] J422ToABGR(byte[] j422, int width, int height);
 }

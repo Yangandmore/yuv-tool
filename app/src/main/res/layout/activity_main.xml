@@ -716,17 +716,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="J400 -> ARGB"
-                android:onClick="j420ToARGBClick"/>
+                android:onClick="j400ToARGBClick"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="J420转码"/>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="J420 -> ARGB"
+                android:onClick="j420ToARGBClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="J420 -> ABGR"
+                android:onClick="j420ToABGRClick"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="J422转码"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="J420 -> ARGB"
+                android:onClick="j422ToARGBClick"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="J420 -> ABGR"
+                android:onClick="j422ToABGRClick"/>
 
         </LinearLayout>
 

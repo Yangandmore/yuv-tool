@@ -184,6 +184,20 @@ It is used for all functions of libyuv in Android, and the conversion tool betwe
     | --------- | ---------  | ----- |
     |I420       | xxxx      | success|
 
+    |  src format  |  dst format |  test  |
+    | --------- | --------- | ----- |
+    |J400       | ARGB      | success|
+
+    |  src format  |  dst format |  test  |
+    | --------- | --------- | ----- |
+    |J420       | ARGB      | success|
+    |J420       | ABGR      | success|
+
+    |  src format  |  dst format |  test  |
+    | --------- | --------- | ----- |
+    |J422       | ARGB      | success|
+    |J422       | ABGR      | success|
+
 ## Coding
 
 ```gradle
