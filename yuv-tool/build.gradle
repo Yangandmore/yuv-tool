@@ -2,15 +2,10 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
 
-    ndkVersion "21.1.6352462"
-    
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
 
         externalNativeBuild {
             cmake {
